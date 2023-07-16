@@ -1,0 +1,53 @@
+{
+  "germanminer": {
+    "hudWidgetCategory": {
+      "global": {
+        "name": "GermanMiner",
+        "description": "Shows you information about GermanMiner"
+      }
+    },
+    "hudWidget": {
+      "balance": {
+        "name": "Bank-System",
+        "description": "Displays your current cash and balance",
+        "cash": "Cash",
+        "bank": "Balance"
+      },
+      "level": {
+        "name": "Player Level",
+        "description": "Displays your current player level",
+        "level": "Level",
+        "points": "Level Points"
+      },
+      "loading": "Loading...",
+      "error": "Error"
+    },
+    "settings": {
+      "name": "GermanMiner",
+      "enabled": {
+        "name": "Enabled"
+      },
+      "vehicleEngineHotkey": {
+        "name": "Engine (on/off)",
+        "description": "Hotkey to switch the engine on/off"
+      },
+      "vehicleSirenHotkey": {
+        "name": "Siren (on/off)",
+        "description": "Hotkey to switch the siren on/off"
+      },
+      "vehicleLimiterSwitchHotkey": {
+        "name": "Cruise control (on/off)",
+        "description": "Hotkey to switch the cruise control on/off"
+      },
+      "vehicleLimiterSetHotkey": {
+        "name": "Cruise control (adopt current speed)",
+        "description": "Hotkey to adopt the current speed"
+      },
+      "header": {
+        "hotkey": {
+          "name": "Vehicle-System"
+        }
+      }
+    }
+  }
+}
