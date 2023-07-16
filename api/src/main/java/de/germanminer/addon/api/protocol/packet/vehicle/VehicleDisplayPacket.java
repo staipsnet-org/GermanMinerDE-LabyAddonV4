@@ -4,6 +4,7 @@ import de.germanminer.addon.api.protocol.packet.GermanMinerPacket;
 
 public class VehicleDisplayPacket implements GermanMinerPacket {
 
+  private Boolean moduleEnabled;
   private Boolean show;
   private Integer speed;
   private Boolean limiterActive;
@@ -17,10 +18,15 @@ public class VehicleDisplayPacket implements GermanMinerPacket {
 
   public VehicleDisplayPacket() {
   }
+
+  public VehicleDisplayPacket(final Boolean moduleEnabled) {
+    this.moduleEnabled = moduleEnabled;
+  }
   
-  public VehicleDisplayPacket(final Boolean show, final Integer speed, final Boolean limiterActive,
-      final Integer limiterSpeed, final Integer fuelPercent, final String gearPosition, final Integer flightHeight,
-      final String engineState, final Integer damageState, final Boolean nightMode) {
+  public VehicleDisplayPacket(final Boolean moduleEnabled, final Boolean show, final Integer speed,
+      final Boolean limiterActive, final Integer limiterSpeed, final Integer fuelPercent, final String gearPosition,
+      final Integer flightHeight, final String engineState, final Integer damageState, final Boolean nightMode) {
+    this.moduleEnabled = moduleEnabled;
     this.show = show;
     this.speed = speed;
     this.limiterActive = limiterActive;
@@ -31,6 +37,10 @@ public class VehicleDisplayPacket implements GermanMinerPacket {
     this.engineState = engineState;
     this.damageState = damageState;
     this.nightMode = nightMode;
+  }
+
+  public Boolean getModuleEnabled() {
+    return this.moduleEnabled;
   }
 
   public Boolean getShow() {

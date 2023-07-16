@@ -70,7 +70,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
         new GermanMinerPayloadTranslationListener(BalancePacket.class, "gmde-balance", TranslationSide.INCOMING),
         new GermanMinerPayloadTranslationListener(LevelPacket.class, "gmde-level", TranslationSide.INCOMING),
 
-        new GermanMinerPayloadTranslationListener(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.INCOMING),
+        new GermanMinerPayloadTranslationListener(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.BOTH),
         new GermanMinerPayloadTranslationListener(VehiclePositionPacket.class, "gmde-vehicle-position", TranslationSide.INCOMING),
         new GermanMinerPayloadTranslationListener(VehicleHotKeyPacket.class, "gmde-vehicle-hotkey", TranslationSide.OUTGOING),
 
@@ -84,7 +84,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
         new GermanMinerPayloadTranslationListenerOld(BalancePacket.class, "gmde-balance", TranslationSide.INCOMING),
         new GermanMinerPayloadTranslationListenerOld(LevelPacket.class, "gmde-level", TranslationSide.INCOMING),
 
-        new GermanMinerPayloadTranslationListenerOld(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.INCOMING),
+        new GermanMinerPayloadTranslationListenerOld(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.BOTH),
         new GermanMinerPayloadTranslationListenerOld(VehiclePositionPacket.class, "gmde-vehicle-position", TranslationSide.INCOMING),
         new GermanMinerPayloadTranslationListenerOld(VehicleHotKeyPacket.class, "gmde-vehicle-hotkey", TranslationSide.OUTGOING),
 
