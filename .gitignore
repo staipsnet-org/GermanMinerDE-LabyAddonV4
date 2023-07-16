@@ -7,3 +7,7 @@
 /core/build/classes/java/main/
 /game-runner/build/
 /game-runner/build/classes/java/v1_12_2/
+/core/src/main/resources/LabyMod-4.jar.src/*
+/run/*
+/.idea/*
+/gradle/*
