@@ -19,6 +19,16 @@
         "level": "Level",
         "points": "Level Points"
       },
+      "vehicleDisplay": {
+        "name": "Vehicle Displays",
+        "description": "Displays information about your current vehicle",
+        "engine": {
+          "starting": "Engine starts...",
+          "off": "Engine off"
+        },
+        "gear": "Gear: %s",
+        "height": "Height: %s ft"
+      },
       "loading": "Loading...",
       "error": "Error"
     },

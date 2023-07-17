@@ -18,6 +18,16 @@
         "level": "Level",
         "points": "Levelpunkte"
       },
+      "vehicleDisplay": {
+        "name": "Fahrzeug-Anzeigen",
+        "description": "Zeigt Informationen zu deinem aktuellen Fahrzeugen an",
+        "engine": {
+          "starting": "Motor startet...",
+          "off": "Motor aus"
+        },
+        "gear": "Gang: %s",
+        "height": "Höhe: %s ft"
+      },
       "loading": "Lädt...",
       "error": "Fehler"
     },
