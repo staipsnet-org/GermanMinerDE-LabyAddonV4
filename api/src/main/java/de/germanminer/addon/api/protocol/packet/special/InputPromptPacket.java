@@ -11,16 +11,18 @@ public class InputPromptPacket implements GermanMinerPacket {
   private String buttonSubmit;
   @SerializedName("button_cancel")
   private String buttonCancel;
+  private Boolean exit;
 
   public InputPromptPacket() {
   }
 
   public InputPromptPacket(final String message, final String value,
-      final String buttonSubmit, final String buttonCancel) {
+      final String buttonSubmit, final String buttonCancel, final Boolean exit) {
     this.message = message;
     this.value = value;
     this.buttonSubmit = buttonSubmit;
     this.buttonCancel = buttonCancel;
+    this.exit = exit;
   }
 
   public String getMessage() {
@@ -37,6 +39,10 @@ public class InputPromptPacket implements GermanMinerPacket {
 
   public String getButtonCancel() {
     return this.buttonCancel;
+  }
+
+  public Boolean getExit() {
+    return this.exit;
   }
 
 }

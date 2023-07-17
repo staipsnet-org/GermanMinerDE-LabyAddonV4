@@ -11,10 +11,12 @@ import de.germanminer.addon.api.protocol.packet.widget.BalancePacket;
 import de.germanminer.addon.api.protocol.packet.widget.LevelPacket;
 import de.germanminer.addon.controller.GermanMinerController;
 import de.germanminer.addon.controller.HotKeyController;
+import de.germanminer.addon.controller.InputPromptController;
 import de.germanminer.addon.controller.VehicleController;
 import de.germanminer.addon.core.generated.DefaultReferenceStorage;
 import de.germanminer.addon.protocol.GermanMinerProtocol;
 import de.germanminer.addon.protocol.GermanMinerProtocolOld;
+import de.germanminer.addon.protocol.handler.InputPromptPacketHandler;
 import de.germanminer.addon.protocol.handler.NotificationPacketHandler;
 import de.germanminer.addon.protocol.handler.VehiclePositionPacketHandler;
 import de.germanminer.addon.protocol.translation.GermanMinerPayloadTranslationListener;
@@ -113,12 +115,11 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     this.logger().info("[GermanMiner] Registering Features...");
 
     protocolService.registerPacketHandler(NotificationPacket.class, new NotificationPacketHandler());
-
     protocolService.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
+    protocolService.registerPacketHandler(InputPromptPacket.class, new InputPromptPacketHandler());
 
     new HotKeyController(this);
 
-    //GuiTextboxPrompt.initialize();
     this.logger().info("[GermanMiner] Finished initialization.");
   }
 
@@ -163,6 +164,12 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   public VehicleController getVehicleController() {
     final DefaultReferenceStorage references = this.referenceStorageAccessor();
     return references.getVehicleController();
+  }
+
+  @Nullable
+  public InputPromptController getTextBoxPromptController() {
+    final DefaultReferenceStorage references = this.referenceStorageAccessor();
+    return references.getInputPromptController();
   }
 
 }
