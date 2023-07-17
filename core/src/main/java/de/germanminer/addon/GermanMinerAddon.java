@@ -16,13 +16,13 @@ import de.germanminer.addon.core.generated.DefaultReferenceStorage;
 import de.germanminer.addon.protocol.GermanMinerProtocol;
 import de.germanminer.addon.protocol.GermanMinerProtocolOld;
 import de.germanminer.addon.protocol.handler.NotificationPacketHandler;
-import de.germanminer.addon.protocol.handler.TempVehicleDisplayPacketHandler;
 import de.germanminer.addon.protocol.handler.VehiclePositionPacketHandler;
 import de.germanminer.addon.protocol.translation.GermanMinerPayloadTranslationListener;
 import de.germanminer.addon.protocol.translation.GermanMinerPayloadTranslationListenerOld;
 import de.germanminer.addon.protocol.translation.TranslationSide;
 import de.germanminer.addon.widgets.BalanceWidget;
 import de.germanminer.addon.widgets.LevelWidget;
+import de.germanminer.addon.widgets.VehicleDisplayWidget;
 import java.util.Arrays;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
@@ -100,27 +100,21 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
     final BalanceWidget balanceWidget = new BalanceWidget("balance");
     protocolService.registerPacketHandler(BalancePacket.class, balanceWidget);
-    this.protocol.registerPacketHandler(BalancePacket.class, balanceWidget);
     registry.register(balanceWidget);
+
     final LevelWidget levelWidget = new LevelWidget("level");
     protocolService.registerPacketHandler(LevelPacket.class, levelWidget);
-    this.protocol.registerPacketHandler(LevelPacket.class, levelWidget);
     registry.register(levelWidget);
 
-    // ToDo: remove again later
-    protocolService.registerPacketHandler(VehicleDisplayPacket.class, new TempVehicleDisplayPacketHandler());
-    this.protocol.registerPacketHandler(VehicleDisplayPacket.class, new TempVehicleDisplayPacketHandler());
-
-    //vehicleDisplayModule = new VehicleDisplayModule(this);
-    //this.getApi().registerModule(vehicleDisplayModule);
+    final VehicleDisplayWidget vehicleWidget = new VehicleDisplayWidget("vehicleDisplay");
+    protocolService.registerPacketHandler(VehicleDisplayPacket.class, vehicleWidget);
+    registry.register(vehicleWidget);
 
     this.logger().info("[GermanMiner] Registering Features...");
 
-    protocolService.registerPacketHandler(VehicleDisplayPacket.class, new NotificationPacketHandler());
-    this.protocol.registerPacketHandler(VehicleDisplayPacket.class, new NotificationPacketHandler());
+    protocolService.registerPacketHandler(NotificationPacket.class, new NotificationPacketHandler());
 
     protocolService.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
-    this.protocol.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
 
     new HotKeyController(this);
 
