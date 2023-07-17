@@ -27,12 +27,10 @@ import org.jetbrains.annotations.NotNull;
 public class GermanMinerProtocolOld {
 
   private final Map<String, Class<? extends GermanMinerPacket>> packets;
-  private final Map<Class<? extends GermanMinerPacket>, PacketHandler<?>> packetHandlers;
   private final Gson gson;
 
   public GermanMinerProtocolOld() {
     this.packets = new HashMap<>();
-    this.packetHandlers = new HashMap<>();
     this.gson = new GsonBuilder().create();
 
     // Info Packets
@@ -62,47 +60,6 @@ public class GermanMinerProtocolOld {
     }
 
     this.packets.put(id, packet);
-  }
-
-  public void registerPacketHandler(final Class<? extends GermanMinerPacket> packetClass, final PacketHandler<?> packetHandler) {
-    if (this.packetHandlers.containsKey(packetClass)) {
-      GermanMinerAddon.getInstance().logger().warn(
-          "A handler has already been registered for this packet. ({})", packetClass.getName());
-      return;
-    }
-    this.packetHandlers.put(packetClass, packetHandler);
-  }
-
-  public void handlePayload(final byte[] payload) {
-    final PayloadReader reader = new PayloadReader(payload);
-    final String id = reader.readString();
-
-    final Class<? extends GermanMinerPacket> packetClass = this.packets.getOrDefault(id, null);
-
-    if (packetClass == null) {
-      GermanMinerAddon.getInstance().logger().warn("Unknown packet with ID {}", id);
-      return;
-    }
-
-    final GermanMinerPacket packet = this.gson.fromJson(reader.readString(), packetClass);
-
-    if (packet == null) {
-      return;
-    }
-
-    handlePacket(packet);
-  }
-
-  @SuppressWarnings("unchecked")
-  private <T extends GermanMinerPacket> void handlePacket(final T packet) {
-    final PacketHandler<T> packetHandler = (PacketHandler<T>)
-        this.packetHandlers.getOrDefault(packet.getClass(), null);
-
-    if (packetHandler == null) {
-      return;
-    }
-
-    packetHandler.handle(packet);
   }
 
   public byte[] writePacketToBinary(final @NotNull Packet packet) {
