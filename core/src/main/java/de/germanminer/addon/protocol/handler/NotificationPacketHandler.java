@@ -1,8 +1,8 @@
 package de.germanminer.addon.protocol.handler;
 
-import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.api.protocol.packet.special.NotificationPacket;
 import java.util.UUID;
+import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.notification.Notification;
@@ -37,7 +37,7 @@ public class NotificationPacketHandler implements PacketHandler<NotificationPack
           .build();
     }
 
-    GermanMinerAddon.getInstance().labyAPI().notificationController().push(notification);
+    Laby.labyAPI().notificationController().push(notification);
   }
 
 }
