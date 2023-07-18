@@ -51,8 +51,6 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     return 2;
   }
 
-  // ToDo: PacketHandler for InputPrompt, VehicleDisplay,
-
   @Override
   protected void enable() {
     this.registerSettingCategory();
