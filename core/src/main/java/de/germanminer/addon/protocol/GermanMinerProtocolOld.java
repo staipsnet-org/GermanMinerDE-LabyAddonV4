@@ -2,7 +2,6 @@ package de.germanminer.addon.protocol;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.api.protocol.packet.GermanMinerPacket;
 import de.germanminer.addon.api.protocol.packet.info.AddonInfoPacket;
 import de.germanminer.addon.api.protocol.packet.special.InputPromptPacket;
@@ -17,9 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import net.labymod.serverapi.protocol.packet.Packet;
-import net.labymod.serverapi.protocol.packet.PacketHandler;
 import net.labymod.serverapi.protocol.packet.protocol.execption.ProtocolException;
-import net.labymod.serverapi.protocol.payload.io.PayloadReader;
 import net.labymod.serverapi.protocol.payload.io.PayloadWriter;
 import org.jetbrains.annotations.NotNull;
 

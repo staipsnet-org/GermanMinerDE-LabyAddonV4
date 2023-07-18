@@ -1,13 +1,13 @@
 package de.germanminer.addon.protocol;
 
 import de.germanminer.addon.api.protocol.packet.info.AddonInfoPacket;
-import de.germanminer.addon.api.protocol.packet.widget.BalancePacket;
 import de.germanminer.addon.api.protocol.packet.special.InputPromptPacket;
-import de.germanminer.addon.api.protocol.packet.widget.LevelPacket;
 import de.germanminer.addon.api.protocol.packet.special.NotificationPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleDisplayPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleHotKeyPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehiclePositionPacket;
+import de.germanminer.addon.api.protocol.packet.widget.BalancePacket;
+import de.germanminer.addon.api.protocol.packet.widget.LevelPacket;
 import net.labymod.serverapi.protocol.packet.protocol.Protocol;
 import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifier;
 
