@@ -48,21 +48,12 @@ VehicleDisplayContent {
       z-index: 2;
     }
 
-    .fuel {
+    .background {
       width: 128;
       height: 128;
       right: 0;
       top: 0;
-      z-index: 2;
-      rotate: 11;
-    }
-
-    .speedometer {
-      width: 128;
-      height: 128;
-      right: 0;
-      top: 0;
-      z-index: 0;
+      z-index: 1;
     }
   }
 }
