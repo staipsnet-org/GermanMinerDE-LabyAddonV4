@@ -9,7 +9,6 @@ import net.labymod.api.event.Phase;
 
 public class GermanMinerServer extends AbstractServer {
 
-  // ToDo: remove localhost
   private static final List<ServerAddress> SERVER_ADDRESSES = Arrays.asList(
       ServerAddress.parse("mc.germanminer.de"),
       ServerAddress.parse("germanminer.de"),
@@ -18,8 +17,7 @@ public class GermanMinerServer extends AbstractServer {
       ServerAddress.parse("51.77.73.236:25565"),
       ServerAddress.parse("51.89.46.236:26510"),
       ServerAddress.parse("51.89.46.236:26511"),
-      ServerAddress.parse("51.89.46.236:26512"),
-      ServerAddress.parse("localhost")
+      ServerAddress.parse("51.89.46.236:26512")
   );
 
   private final GermanMinerAddon addon;
