@@ -5,12 +5,15 @@ import net.labymod.api.client.resources.ResourceLocation;
 
 public enum VehicleDisplayTexture {
 
-  SPEEDOMETER_BACKGROUND("speedometer-background-black.png", "speedometer-background-black-night.png"),
+  SPEEDOMETER_FUEL("speedometer-fuel.png", "speedometer-fuel-night.png"),
   WARNING_YELLOW("warning-yellow.png"),
   WARNING_RED("warning-red.png"),
   SPEED_LIMITER_ACTIVE("speed-limiter-green.png"),
   SPEED_LIMITER_READY("speed-limiter-yellow.png"),
-  FUEL_OVERLAY("fuel-overlay.png", "fuel-overlay-night.png");
+  SPEED_NEEDLE("speed-needle.png", "speed-needle-night.png"),
+  LIMITER_NEEDLE("limiter-needle.png", "limiter-needle-night.png"),
+  LIMITER_NEEDLE_INACTIVE("limiter-needle-inactive.png"),
+  FUEL_NEEDLE("fuel-needle.png", "fuel-needle-night.png");
 
   private final Icon icon;
   private final Icon iconNight;
