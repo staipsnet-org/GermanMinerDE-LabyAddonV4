@@ -13,7 +13,6 @@ import net.labymod.api.client.gui.screen.widget.widgets.renderer.IconWidget;
 public class VehicleDisplayContent extends FlexibleContentWidget {
 
   private IconWidget background;
-  private IconWidget fuel;
   private ComponentWidget speed;
   private ComponentWidget info;
   private IconWidget speedLimiter;
@@ -44,14 +43,9 @@ public class VehicleDisplayContent extends FlexibleContentWidget {
     this.speed.addId("speed");
     div.addChild(this.speed);
 
-    this.fuel = new IconWidget(VehicleDisplayTexture.FUEL_OVERLAY.getIcon(false));
-    this.fuel.setCleanupOnDispose(true);
-    this.fuel.addId("fuel");
-    div.addChild(this.fuel);
-
-    this.background = new IconWidget(VehicleDisplayTexture.SPEEDOMETER_BACKGROUND.getIcon(false));
+    this.background = new IconWidget(VehicleDisplayTexture.SPEEDOMETER_FUEL.getIcon(false));
     this.background.setCleanupOnDispose(true);
-    this.background.addId("speedometer");
+    this.background.addId("background");
     div.addChild(this.background);
 
     this.addContent(div);
@@ -59,10 +53,6 @@ public class VehicleDisplayContent extends FlexibleContentWidget {
 
   public IconWidget getBackground() {
     return this.background;
-  }
-
-  public IconWidget getFuel() {
-    return this.fuel;
   }
 
   public ComponentWidget getSpeed() {
