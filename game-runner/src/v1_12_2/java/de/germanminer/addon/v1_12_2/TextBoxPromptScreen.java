@@ -98,12 +98,13 @@ public class TextBoxPromptScreen extends GuiScreen {
   @Override
   protected void keyTyped(final char typedChar, final int keyCode) {
     if (keyCode == 1) {
-      Minecraft.getMinecraft().displayGuiScreen(this);
+      GermanMinerAddon.getInstance().sendPacket(
+          new InputPromptPacket(null, null, null, null, true));
+      Minecraft.getMinecraft().displayGuiScreen(null);
     } else if (keyCode == 28) {
       if (!this.field.getText().isEmpty()) {
         this.actionPerformed(this.buttonSubmit);
       }
-
     } else {
       super.keyTyped(typedChar, keyCode);
       this.field.textboxKeyTyped(typedChar, keyCode);
