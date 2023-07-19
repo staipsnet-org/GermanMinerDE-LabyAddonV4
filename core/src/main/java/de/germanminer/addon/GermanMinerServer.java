@@ -31,6 +31,7 @@ public class GermanMinerServer extends AbstractServer {
   public void loginOrSwitch(final LoginPhase phase) {
     this.addon.setOnline(true);
     this.addon.sendPacket(new AddonInfoPacket(GermanMinerAddon.getVersion()));
+    this.addon.getVehicleWidget().sendInfo();
   }
 
   @Override

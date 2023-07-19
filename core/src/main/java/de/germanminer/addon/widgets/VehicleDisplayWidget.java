@@ -44,6 +44,8 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   public void load(final HudWidgetConfig config) {
     super.load(config);
     super.setIcon(this.hudWidgetIcon);
+
+    sendInfo();
   }
 
   @Override
@@ -197,6 +199,10 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
       this.damageState = packet.getDamageState();
       this.warningLight = 0;
     }
+  }
+
+  public void sendInfo() {
+    GermanMinerAddon.getInstance().sendPacket(new VehicleDisplayPacket(super.isEnabled()));
   }
 
 }

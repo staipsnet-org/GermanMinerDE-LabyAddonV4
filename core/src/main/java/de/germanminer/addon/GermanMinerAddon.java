@@ -41,6 +41,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   private static GermanMinerAddon instance;
   private boolean online = false;
   private HudWidgetCategory category;
+  private VehicleDisplayWidget vehicleWidget;
   private GermanMinerProtocolOld protocol;
 
   public static GermanMinerAddon getInstance() {
@@ -106,9 +107,9 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     protocolService.registerPacketHandler(LevelPacket.class, levelWidget);
     registry.register(levelWidget);
 
-    final VehicleDisplayWidget vehicleWidget = new VehicleDisplayWidget("germanminerVehicleDisplay");
-    protocolService.registerPacketHandler(VehicleDisplayPacket.class, vehicleWidget);
-    registry.register(vehicleWidget);
+    this.vehicleWidget = new VehicleDisplayWidget("germanminerVehicleDisplay");
+    protocolService.registerPacketHandler(VehicleDisplayPacket.class, this.vehicleWidget);
+    registry.register(this.vehicleWidget);
 
     this.logger().info("[GermanMiner] Registering Features...");
 
@@ -156,6 +157,10 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
   public HudWidgetCategory getCategory() {
     return this.category;
+  }
+
+  public VehicleDisplayWidget getVehicleWidget() {
+    return this.vehicleWidget;
   }
 
   @Nullable
