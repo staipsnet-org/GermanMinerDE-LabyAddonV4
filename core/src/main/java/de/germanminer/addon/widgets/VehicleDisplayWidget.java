@@ -16,8 +16,8 @@ import net.labymod.serverapi.protocol.packet.PacketHandler;
 
 public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> implements PacketHandler<VehicleDisplayPacket> {
 
-  private static final float SPEED_NEEDLE_MAX = -225F;
-  private static final float FUEL_NEEDLE_MAX = 90F;
+  private static final float SPEED_NEEDLE_MAX = 225F;
+  private static final float FUEL_NEEDLE_MAX = -90F;
   private static final float SPEED_NEEDLE_UNIT = SPEED_NEEDLE_MAX / 200F;
   private static final float FUEL_NEEDLE_UNIT = FUEL_NEEDLE_MAX / 100F;
 
@@ -59,16 +59,17 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
       final boolean isEditorContext, final HudSize size) {
 
     drawLine(stack, size, Math.max(0, Math.min(SPEED_NEEDLE_MAX, this.speed * SPEED_NEEDLE_UNIT)),
-        VehicleDisplayTexture.SPEED_NEEDLE.getIcon(this.nightMode));
-    drawLine(stack, size, Math.max(0, Math.min(FUEL_NEEDLE_MAX, this.fuel * FUEL_NEEDLE_UNIT)),
-        VehicleDisplayTexture.FUEL_NEEDLE.getIcon(this.nightMode));
+        VehicleDisplayTexture.SPEED_NEEDLE.getIcon(this.nightMode), 4F);
+    drawLine(stack, size, Math.min(0, Math.max(FUEL_NEEDLE_MAX, this.fuel * FUEL_NEEDLE_UNIT)),
+        VehicleDisplayTexture.FUEL_NEEDLE.getIcon(this.nightMode), 4F);
 
     if (this.limiterSpeed >= 10) {
       final Icon icon = this.limiterActive ?
           VehicleDisplayTexture.LIMITER_NEEDLE.getIcon(this.nightMode) :
           VehicleDisplayTexture.LIMITER_NEEDLE_INACTIVE.getIcon(this.nightMode);
 
-      drawLine(stack, size, Math.max(0, Math.min(SPEED_NEEDLE_MAX, this.limiterSpeed * SPEED_NEEDLE_UNIT)), icon);
+      drawLine(stack, size, Math.max(0, Math.min(SPEED_NEEDLE_MAX,
+          this.limiterSpeed * SPEED_NEEDLE_UNIT)), icon, 3F);
     }
 
     if (this.damageState >= 1) {
@@ -84,11 +85,12 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
     }
   }
 
-  private void drawLine(final Stack stack, final HudSize size, final float angle, final Icon icon) {
+  private void drawLine(final Stack stack, final HudSize size, final float angle,
+      final Icon icon, final float zIndex) {
     stack.push();
-    stack.translate(size.getWidth() / 2F, size.getHeight() / 2F, 3);
+    stack.translate(size.getWidth() / 2F, size.getHeight() / 2F, zIndex);
     stack.rotate(angle, 0F, 0F, 1F);
-    stack.translate(-size.getWidth() / 2F, -size.getHeight() / 2F, 3);
+    stack.translate(-size.getWidth() / 2F, -size.getHeight() / 2F, zIndex);
     icon.render(stack, 0F, 0F, size.getWidth(), size.getHeight());
     stack.translate(0F, 0F, 0F);
     stack.pop();
