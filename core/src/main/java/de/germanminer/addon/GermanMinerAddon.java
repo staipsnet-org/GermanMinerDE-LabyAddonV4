@@ -107,9 +107,10 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     protocolService.registerPacketHandler(LevelPacket.class, levelWidget);
     registry.register(levelWidget);
 
-    this.vehicleWidget = new VehicleDisplayWidget("germanminerVehicleDisplay");
+    this.vehicleWidget = new VehicleDisplayWidget(this, "germanminerVehicleDisplay");
     protocolService.registerPacketHandler(VehicleDisplayPacket.class, this.vehicleWidget);
     registry.register(this.vehicleWidget);
+    registerListener(this.vehicleWidget);
 
     this.logger().info("[GermanMiner] Registering Features...");
 

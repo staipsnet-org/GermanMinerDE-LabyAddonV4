@@ -12,6 +12,8 @@ import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.gui.mouse.MutableMouse;
 import net.labymod.api.client.gui.screen.widget.widgets.hud.HudWidgetWidget;
 import net.labymod.api.client.render.matrix.Stack;
+import net.labymod.api.event.Subscribe;
+import net.labymod.api.event.client.gui.hud.HudWidgetDestroyedEvent;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
 
 public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> implements PacketHandler<VehicleDisplayPacket> {
@@ -21,6 +23,7 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   private static final float SPEED_NEEDLE_UNIT = SPEED_NEEDLE_MAX / 200F;
   private static final float FUEL_NEEDLE_UNIT = FUEL_NEEDLE_MAX / 100F;
 
+  private final GermanMinerAddon addon;
   private final Icon hudWidgetIcon;
   private VehicleDisplayContent content;
 
@@ -33,10 +36,11 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   private int damageState;
   private int warningLight;
 
-  public VehicleDisplayWidget(final String id) {
+  public VehicleDisplayWidget(final GermanMinerAddon addon, final String id) {
     super(id, HudWidgetConfig.class);
     super.bindCategory(GermanMinerAddon.getInstance().getCategory());
 
+    this.addon = addon;
     this.hudWidgetIcon = VehicleDisplayTexture.SPEED_LIMITER_ACTIVE.getIcon(true);
   }
 
@@ -100,8 +104,7 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
 
   @Override
   public boolean isVisibleInGame() {
-    return GermanMinerAddon.getInstance().enabled()
-     && !Laby.references().chatAccessor().isChatOpen() && this.show;
+    return this.addon.enabled() && !Laby.references().chatAccessor().isChatOpen() && this.show;
   }
 
   @Override
@@ -210,8 +213,15 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
     }
   }
 
+  @Subscribe
+  public void onDestroy(final HudWidgetDestroyedEvent event) {
+    if (event.hudWidget() == this) {
+      sendInfo();
+    }
+  }
+
   public void sendInfo() {
-    GermanMinerAddon.getInstance().sendPacket(new VehicleDisplayPacket(super.isEnabled()));
+    this.addon.sendPacket(new VehicleDisplayPacket(this.addon.enabled() && super.isEnabled()));
   }
 
 }
