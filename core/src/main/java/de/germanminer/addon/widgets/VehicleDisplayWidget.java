@@ -112,6 +112,15 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
       if (!this.show) {
         this.content.getSpeedLimiter().setVisible(false);
         this.content.getWarning().setVisible(false);
+
+        // reset values because other vehicles may not have them send
+        this.nightMode = false;
+        this.speed = 0;
+        this.fuel = 0;
+        this.limiterActive = false;
+        this.limiterSpeed = 0;
+        this.damageState = 0;
+        this.warningLight = 0;
       }
     }
 
