@@ -29,8 +29,7 @@
         "gear": "Gear: %s",
         "height": "Height: %s ft"
       },
-      "loading": "Loading...",
-      "error": "Error"
+      "loading": "Loading..."
     },
     "settings": {
       "name": "GermanMiner",

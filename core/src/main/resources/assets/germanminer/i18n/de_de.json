@@ -28,8 +28,7 @@
         "gear": "Gang: %s",
         "height": "Höhe: %s ft"
       },
-      "loading": "Lädt...",
-      "error": "Fehler"
+      "loading": "Lädt..."
     },
     "settings": {
       "enabled": {
