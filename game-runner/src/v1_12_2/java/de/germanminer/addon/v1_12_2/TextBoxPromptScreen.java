@@ -22,7 +22,7 @@ public class TextBoxPromptScreen extends GuiScreen {
   public TextBoxPromptScreen(final String message, final String value,
       final String textSubmit, final String textCancel) {
     this.message = message;
-    this.value = value;
+    this.value = value == null ? "" : value;
     this.textSubmit = TextFormatting.WHITE + textSubmit;
     this.textCancel = TextFormatting.WHITE + textCancel;
   }
@@ -41,8 +41,10 @@ public class TextBoxPromptScreen extends GuiScreen {
     this.field.setText(this.value);
     this.field.setCursorPositionEnd();
 
-    this.buttonSubmit = new GuiButton(1, super.width / 2 + 20, super.height / 2 + 25, 90, 20, this.textSubmit);
-    this.buttonCancel = new GuiButton(2, super.width / 2 - 110, super.height / 2 + 25, 90, 20, this.textCancel);
+    this.buttonSubmit = new GuiButton(1, super.width / 2 + 20,
+        super.height / 2 + 25, 90, 20, this.textSubmit);
+    this.buttonCancel = new GuiButton(2, super.width / 2 - 110,
+        super.height / 2 + 25, 90, 20, this.textCancel);
 
     super.buttonList.add(this.buttonSubmit);
     super.buttonList.add(this.buttonCancel);
@@ -50,7 +52,7 @@ public class TextBoxPromptScreen extends GuiScreen {
 
   @Override
   public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
-    this.drawBackground(75);
+    this.drawWorldBackground(75);
     this.field.setFocused(true);
     this.field.drawTextBox();
     this.buttonSubmit.enabled = !this.field.getText().isEmpty();
