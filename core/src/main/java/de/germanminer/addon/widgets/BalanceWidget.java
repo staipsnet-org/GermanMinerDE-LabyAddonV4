@@ -41,9 +41,9 @@ public class BalanceWidget extends TextHudWidget<TextHudWidgetConfig> implements
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
-    this.cash = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.cash", super.getId())),
+    this.cash = super.createLine(Component.translatable("germanminer.hudWidget.balance.cash"),
         Component.translatable("germanminer.hudWidget.loading"));
-    this.bank = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.bank", super.getId())),
+    this.bank = super.createLine(Component.translatable("germanminer.hudWidget.balance.bank"),
         Component.translatable("germanminer.hudWidget.loading"));
 
     super.setIcon(this.hudWidgetIcon);

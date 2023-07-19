@@ -51,7 +51,7 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
     super.initialize(widget);
 
     this.content = new VehicleDisplayContent();
-    widget.addChild(content);
+    widget.addChild(this.content);
   }
 
   @Override
@@ -146,15 +146,15 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   private void drawInfo(final VehicleDisplayPacket packet) {
     final TranslatableComponent info;
     if ("STARTING".equals(packet.getEngineState())) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.engine.starting", super.getId()));
+      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.engine.starting");
     } else if ("OFF".equals(packet.getEngineState())) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.engine.off", super.getId()));
+      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.engine.off");
     } else if (packet.getGearPosition() != null) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.gear",
-          super.getId()), Component.text(packet.getGearPosition().charAt(0)));
+      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.gear",
+          Component.text(packet.getGearPosition().charAt(0)));
     } else if (packet.getFlightHeight() != -1) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.height",
-          super.getId()), Component.text(packet.getFlightHeight()));
+      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.height",
+          Component.text(packet.getFlightHeight()));
     } else {
       info = null;
     }

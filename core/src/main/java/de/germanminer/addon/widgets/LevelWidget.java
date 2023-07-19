@@ -28,9 +28,9 @@ public class LevelWidget extends TextHudWidget<TextHudWidgetConfig> implements P
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
-    this.currentLevel = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.level", super.getId())),
+    this.currentLevel = super.createLine(Component.translatable("germanminer.hudWidget.level.level"),
         Component.translatable("germanminer.hudWidget.loading"));
-    this.levelPoints = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.points", super.getId())),
+    this.levelPoints = super.createLine(Component.translatable("germanminer.hudWidget.level.points"),
         Component.translatable("germanminer.hudWidget.loading"));
 
     super.setIcon(this.hudWidgetIcon);

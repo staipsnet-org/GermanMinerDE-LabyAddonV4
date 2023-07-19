@@ -95,18 +95,18 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     this.logger().info("[GermanMiner] Registering Widgets...");
 
     final HudWidgetRegistry registry = this.labyAPI().hudWidgetRegistry();
-    this.category = new HudWidgetCategory(this, "global");
+    this.category = new HudWidgetCategory(this, "germanminerGlobal");
     registry.categoryRegistry().register(this.category);
 
-    final BalanceWidget balanceWidget = new BalanceWidget("balance");
+    final BalanceWidget balanceWidget = new BalanceWidget("germanminerBalance");
     protocolService.registerPacketHandler(BalancePacket.class, balanceWidget);
     registry.register(balanceWidget);
 
-    final LevelWidget levelWidget = new LevelWidget("level");
+    final LevelWidget levelWidget = new LevelWidget("germanminerLevel");
     protocolService.registerPacketHandler(LevelPacket.class, levelWidget);
     registry.register(levelWidget);
 
-    final VehicleDisplayWidget vehicleWidget = new VehicleDisplayWidget("vehicleDisplay");
+    final VehicleDisplayWidget vehicleWidget = new VehicleDisplayWidget("germanminerVehicleDisplay");
     protocolService.registerPacketHandler(VehicleDisplayPacket.class, vehicleWidget);
     registry.register(vehicleWidget);
 
