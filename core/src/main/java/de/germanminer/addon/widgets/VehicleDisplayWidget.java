@@ -156,7 +156,7 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
     } else if (packet.getGearPosition() != null) {
       info = Component.translatable("germanminer.hudWidget.vehicleDisplay.gear",
           Component.text(packet.getGearPosition().charAt(0)));
-    } else if (packet.getFlightHeight() != -1) {
+    } else if (packet.getFlightHeight() != null) {
       info = Component.translatable("germanminer.hudWidget.vehicleDisplay.height",
           Component.text(packet.getFlightHeight()));
     } else {
