@@ -1,24 +1,24 @@
 {
   "germanminer": {
     "hudWidgetCategory": {
-      "global": {
+      "germanminerGlobal": {
         "description": "Zeigt die Informationen über GermanMiner"
       }
     },
     "hudWidget": {
-      "balance": {
+      "germanminerBalance": {
         "name": "Bank-System",
         "description": "Zeigt deine aktuelles Bargeld und Kontostand an",
         "cash": "Bargeld",
         "bank": "Kontostand"
       },
-      "level": {
+      "germanminerLevel": {
         "name": "Spielerlevel",
         "description": "Zeigt dein aktuelles Spielerlevel an",
         "level": "Level",
         "points": "Levelpunkte"
       },
-      "vehicleDisplay": {
+      "germanminerVehicleDisplay": {
         "name": "Fahrzeug-Anzeigen",
         "description": "Zeigt Informationen zu deinem aktuellen Fahrzeugen an",
         "engine": {

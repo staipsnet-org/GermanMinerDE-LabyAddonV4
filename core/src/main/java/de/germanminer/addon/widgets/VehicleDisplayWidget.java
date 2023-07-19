@@ -150,15 +150,15 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   private void drawInfo(final VehicleDisplayPacket packet) {
     final TranslatableComponent info;
     if ("STARTING".equals(packet.getEngineState())) {
-      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.engine.starting");
+      info = Component.translatable(String.format("germanminer.hudWidget.%s.engine.starting", super.getId()));
     } else if ("OFF".equals(packet.getEngineState())) {
-      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.engine.off");
+      info = Component.translatable(String.format("germanminer.hudWidget.%s.engine.off", super.getId()));
     } else if (packet.getGearPosition() != null) {
-      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.gear",
-          Component.text(packet.getGearPosition().charAt(0)));
+      info = Component.translatable(String.format("germanminer.hudWidget.%s.gear",
+          super.getId()), Component.text(packet.getGearPosition().charAt(0)));
     } else if (packet.getFlightHeight() != null) {
-      info = Component.translatable("germanminer.hudWidget.vehicleDisplay.height",
-          Component.text(packet.getFlightHeight()));
+      info = Component.translatable(String.format("germanminer.hudWidget.%s.height",
+          super.getId()), Component.text(packet.getFlightHeight()));
     } else {
       info = null;
     }
