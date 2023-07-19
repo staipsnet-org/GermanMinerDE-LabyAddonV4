@@ -12,7 +12,8 @@ import net.labymod.api.configuration.settings.annotation.SettingSection;
 public class GermanMinerConfig extends AddonConfig {
 
   @SwitchSetting
-  private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+  private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true).addChangeListener(
+      (type, oldValue, newValue) -> GermanMinerAddon.getInstance().getVehicleWidget().sendInfo());
   @SettingSection("hotkey")
   @KeyBindSetting
   private final ConfigProperty<Key> vehicleEngineHotkey = new ConfigProperty<>(Key.M);
