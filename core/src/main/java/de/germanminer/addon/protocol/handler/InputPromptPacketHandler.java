@@ -9,7 +9,7 @@ public class InputPromptPacketHandler implements PacketHandler<InputPromptPacket
 
   @Override
   public void handle(final InputPromptPacket packet) {
-    final InputPromptController controller = GermanMinerAddon.getInstance().getTextBoxPromptController();
+    final InputPromptController controller = GermanMinerAddon.getInstance().getInputPromptController();
 
     if (controller != null && packet.getMessage() != null
         && packet.getButtonSubmit() != null && packet.getButtonCancel() != null) {

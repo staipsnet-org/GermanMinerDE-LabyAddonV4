@@ -165,7 +165,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   }
 
   @Nullable
-  public InputPromptController getTextBoxPromptController() {
+  public InputPromptController getInputPromptController() {
     final DefaultReferenceStorage references = this.referenceStorageAccessor();
     return references.getInputPromptController();
   }
