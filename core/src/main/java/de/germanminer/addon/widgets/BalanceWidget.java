@@ -10,6 +10,7 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.client.gui.screen.widget.widgets.hud.HudWidgetWidget;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
 
@@ -41,12 +42,17 @@ public class BalanceWidget extends TextHudWidget<TextHudWidgetConfig> implements
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
+    super.setIcon(this.hudWidgetIcon);
+  }
+
+  @Override
+  public void initialize(final HudWidgetWidget widget) {
+    super.initialize(widget);
+
     this.cash = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.cash", super.getId())),
         Component.translatable("germanminer.hudWidget.loading"));
     this.bank = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.bank", super.getId())),
         Component.translatable("germanminer.hudWidget.loading"));
-
-    super.setIcon(this.hudWidgetIcon);
   }
 
   @Override

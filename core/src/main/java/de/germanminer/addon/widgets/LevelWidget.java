@@ -8,6 +8,7 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.icon.Icon;
+import net.labymod.api.client.gui.screen.widget.widgets.hud.HudWidgetWidget;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
 
 public class LevelWidget extends TextHudWidget<TextHudWidgetConfig> implements PacketHandler<LevelPacket> {
@@ -28,12 +29,17 @@ public class LevelWidget extends TextHudWidget<TextHudWidgetConfig> implements P
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
+    super.setIcon(this.hudWidgetIcon);
+  }
+
+  @Override
+  public void initialize(final HudWidgetWidget widget) {
+    super.initialize(widget);
+
     this.currentLevel = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.level", super.getId())),
         Component.translatable("germanminer.hudWidget.loading"));
     this.levelPoints = super.createLine(Component.translatable(String.format("germanminer.hudWidget.%s.points", super.getId())),
         Component.translatable("germanminer.hudWidget.loading"));
-
-    super.setIcon(this.hudWidgetIcon);
   }
 
   @Override
