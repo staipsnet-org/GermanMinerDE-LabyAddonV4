@@ -20,6 +20,8 @@ public class BalanceWidget extends TextHudWidget<TextHudWidgetConfig> implements
   private final DecimalFormat numberFormat;
   private TextLine cash;
   private TextLine bank;
+  private String cashValue;
+  private String bankValue;
 
   public BalanceWidget(final String id) {
     super(id);
@@ -42,17 +44,15 @@ public class BalanceWidget extends TextHudWidget<TextHudWidgetConfig> implements
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
-    if (this.cash == null) {
-      this.cash = super.createLine(
-          Component.translatable(String.format("germanminer.hudWidget.%s.cash", super.getId())),
-          Component.translatable("germanminer.hudWidget.loading"));
-    }
+    this.cash = super.createLine(
+      Component.translatable(String.format("germanminer.hudWidget.%s.cash", super.getId())),
+      this.cashValue == null ? Component.translatable("germanminer.hudWidget.loading")
+        : Component.text(this.cashValue));
 
-    if (this.bank == null) {
-      this.bank = super.createLine(
-          Component.translatable(String.format("germanminer.hudWidget.%s.bank", super.getId())),
-          Component.translatable("germanminer.hudWidget.loading"));
-    }
+    this.bank = super.createLine(
+      Component.translatable(String.format("germanminer.hudWidget.%s.bank", super.getId())),
+      this.bankValue == null ? Component.translatable("germanminer.hudWidget.loading")
+        : Component.text(this.bankValue));
 
     super.setIcon(this.hudWidgetIcon);
   }
@@ -64,10 +64,15 @@ public class BalanceWidget extends TextHudWidget<TextHudWidgetConfig> implements
 
   @Override
   public void handle(final BalancePacket packet) {
-    this.cash.updateAndFlush(packet.getCash() != null ? format(packet.getCash()) :
-        Component.translatable("germanminer.hudWidget.error"));
-    this.bank.updateAndFlush(packet.getBank() != null ? format(packet.getBank()) :
-        Component.translatable("germanminer.hudWidget.error"));
+    if (packet.getCash() != null) {
+      this.cashValue = format(packet.getCash());
+      this.cash.updateAndFlush(this.cashValue);
+    }
+
+    if (packet.getBank() != null) {
+      this.bankValue = format(packet.getBank());
+      this.bank.updateAndFlush(this.bankValue);
+    }
   }
 
 }

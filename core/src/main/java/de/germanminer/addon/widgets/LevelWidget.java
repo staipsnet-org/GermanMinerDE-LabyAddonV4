@@ -15,6 +15,8 @@ public class LevelWidget extends TextHudWidget<TextHudWidgetConfig> implements P
   private final Icon hudWidgetIcon;
   private TextLine currentLevel;
   private TextLine levelPoints;
+  private String currentLevelValue;
+  private String levelPointsValue;
 
   public LevelWidget(final String id) {
     super(id);
@@ -28,17 +30,15 @@ public class LevelWidget extends TextHudWidget<TextHudWidgetConfig> implements P
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
-    if (this.currentLevel == null) {
-      this.currentLevel = super.createLine(
-          Component.translatable(String.format("germanminer.hudWidget.%s.level", super.getId())),
-          Component.translatable("germanminer.hudWidget.loading"));
-    }
+    this.currentLevel = super.createLine(
+      Component.translatable(String.format("germanminer.hudWidget.%s.level", super.getId())),
+      this.currentLevelValue == null ? Component.translatable("germanminer.hudWidget.loading")
+        : Component.text(this.currentLevelValue));
 
-    if (this.levelPoints == null) {
-      this.levelPoints = super.createLine(
-          Component.translatable(String.format("germanminer.hudWidget.%s.points", super.getId())),
-          Component.translatable("germanminer.hudWidget.loading"));
-    }
+    this.levelPoints = super.createLine(
+      Component.translatable(String.format("germanminer.hudWidget.%s.points", super.getId())),
+      this.levelPointsValue == null ? Component.translatable("germanminer.hudWidget.loading")
+        : Component.text(this.levelPointsValue));
 
     super.setIcon(this.hudWidgetIcon);
   }
@@ -50,14 +50,18 @@ public class LevelWidget extends TextHudWidget<TextHudWidgetConfig> implements P
 
   @Override
   public void handle(final LevelPacket packet) {
-    this.currentLevel.updateAndFlush(packet.getCurrentLevel() != null ? packet.getCurrentLevel()
-        : Component.translatable("germanminer.hudWidget.error"));
+    if (packet.getCurrentLevel() != null) {
+      this.currentLevelValue = String.valueOf(packet.getCurrentLevel());
+      this.currentLevel.updateAndFlush(this.currentLevelValue);
+    }
 
-    final Integer points = packet.getLevelPoints();
-    final Integer requiredPoints = packet.getRequiredLevelPoints();
+    if (packet.getLevelPoints() != null && packet.getRequiredLevelPoints() != null) {
+      final int points = packet.getLevelPoints();
+      final int requiredPoints = packet.getRequiredLevelPoints();
 
-    this.levelPoints.updateAndFlush(points != null && requiredPoints != null ? points + " / " + requiredPoints
-        : Component.translatable("germanminer.hudWidget.error"));
+      this.levelPointsValue = points + " / " + requiredPoints;
+      this.levelPoints.updateAndFlush(this.levelPointsValue);
+    }
   }
 
 }
