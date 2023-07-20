@@ -63,7 +63,7 @@ public class GermanMinerPayloadTranslationListener extends AbstractPayloadTransl
 
   @Override
   public <T extends Packet> byte[] translateOutgoingPayload(final T packet) {
-    if (!(packet instanceof GermanMinerPacket)) {
+    if (packet.getClass() != this.clazz) {
       return null;
     }
 
