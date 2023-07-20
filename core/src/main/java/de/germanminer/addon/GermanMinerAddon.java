@@ -9,18 +9,15 @@ import de.germanminer.addon.api.protocol.packet.vehicle.VehicleHotKeyPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehiclePositionPacket;
 import de.germanminer.addon.api.protocol.packet.widget.BalancePacket;
 import de.germanminer.addon.api.protocol.packet.widget.LevelPacket;
-import de.germanminer.addon.controller.GermanMinerController;
 import de.germanminer.addon.controller.HotKeyController;
 import de.germanminer.addon.controller.InputPromptController;
 import de.germanminer.addon.controller.VehicleController;
 import de.germanminer.addon.core.generated.DefaultReferenceStorage;
 import de.germanminer.addon.protocol.GermanMinerProtocol;
-import de.germanminer.addon.protocol.GermanMinerProtocolOld;
 import de.germanminer.addon.protocol.handler.InputPromptPacketHandler;
 import de.germanminer.addon.protocol.handler.NotificationPacketHandler;
 import de.germanminer.addon.protocol.handler.VehiclePositionPacketHandler;
 import de.germanminer.addon.protocol.translation.GermanMinerPayloadTranslationListener;
-import de.germanminer.addon.protocol.translation.GermanMinerPayloadTranslationListenerOld;
 import de.germanminer.addon.protocol.translation.TranslationSide;
 import de.germanminer.addon.widgets.BalanceWidget;
 import de.germanminer.addon.widgets.LevelWidget;
@@ -42,7 +39,6 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   private boolean online = false;
   private HudWidgetCategory category;
   private VehicleDisplayWidget vehicleWidget;
-  private GermanMinerProtocolOld protocol;
 
   public static GermanMinerAddon getInstance() {
     return instance;
@@ -63,7 +59,6 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
     final ProtocolService protocolService = ProtocolApiBridge.getProtocolApi().getProtocolService();
     protocolService.registerCustomProtocol(new GermanMinerProtocol());
-    this.protocol = new GermanMinerProtocolOld();
 
     Arrays.asList(
         new GermanMinerPayloadTranslationListener(AddonInfoPacket.class, "gmde-addon-info", TranslationSide.OUTGOING),
@@ -77,20 +72,6 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
         new GermanMinerPayloadTranslationListener(NotificationPacket.class, "gmde-notification", TranslationSide.INCOMING),
         new GermanMinerPayloadTranslationListener(InputPromptPacket.class, "gmde-input-prompt", TranslationSide.BOTH)
-    ).forEach(protocolService::registerTranslationListener);
-
-    Arrays.asList(
-        new GermanMinerPayloadTranslationListenerOld(AddonInfoPacket.class, "gmde-addon-info", TranslationSide.OUTGOING),
-
-        new GermanMinerPayloadTranslationListenerOld(BalancePacket.class, "gmde-balance", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListenerOld(LevelPacket.class, "gmde-level", TranslationSide.INCOMING),
-
-        new GermanMinerPayloadTranslationListenerOld(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.BOTH),
-        new GermanMinerPayloadTranslationListenerOld(VehiclePositionPacket.class, "gmde-vehicle-position", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListenerOld(VehicleHotKeyPacket.class, "gmde-vehicle-hotkey", TranslationSide.OUTGOING),
-
-        new GermanMinerPayloadTranslationListenerOld(NotificationPacket.class, "gmde-notification", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListenerOld(InputPromptPacket.class, "gmde-input-prompt", TranslationSide.BOTH)
     ).forEach(protocolService::registerTranslationListener);
 
     this.logger().info("[GermanMiner] Registering Widgets...");
@@ -131,21 +112,6 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   public void sendPacket(final GermanMinerPacket packet) {
     ProtocolApiBridge.getProtocolApi().getProtocolService().getProtocol(
         PayloadChannelIdentifier.create("labymod", "germanminer")).sendPacket(packet);
-
-    final DefaultReferenceStorage references = this.referenceStorageAccessor();
-    final GermanMinerController controller = references.getGermanMinerController();
-
-    if (controller == null) {
-      return;
-    }
-
-    final byte[] bytes = this.protocol.writePacketToBinary(packet);
-
-    if (bytes == null) {
-      return;
-    }
-
-    controller.sendPayload("LMC", bytes);
   }
 
   public boolean enabled() {
