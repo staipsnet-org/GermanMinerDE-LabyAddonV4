@@ -2,6 +2,8 @@ package de.germanminer.addon.widgets;
 
 import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleDisplayPacket;
+import java.time.Instant;
+import java.util.Date;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TranslatableComponent;
@@ -34,7 +36,6 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   private boolean limiterActive;
   private int limiterSpeed;
   private int damageState;
-  private int warningLight;
 
   public VehicleDisplayWidget(final GermanMinerAddon addon, final String id) {
     super(id, HudWidgetConfig.class);
@@ -79,14 +80,10 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
     }
 
     if (this.damageState >= 1) {
-      final boolean visible = this.warningLight++ < 40;
+      final boolean visible = ((int) Date.from(Instant.now()).getTime() / 1000) % 2 == 0;
 
       if (this.content.getWarning().isVisible() != visible) {
         this.content.getWarning().setVisible(visible);
-      }
-
-      if (this.warningLight == 80) {
-        this.warningLight = 0;
       }
     }
   }
@@ -123,7 +120,6 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
         this.limiterActive = false;
         this.limiterSpeed = 0;
         this.damageState = 0;
-        this.warningLight = 0;
       }
     }
 
@@ -153,8 +149,8 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
       drawSpeedLimiter(packet);
     }
 
-    // update engine state
-    if (packet.getEngineState() != null) {
+    // update damage state
+    if (packet.getDamageState() != null) {
       drawWarning(packet);
     }
   }
@@ -209,7 +205,6 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
 
       this.content.getWarning().icon().set(icon);
       this.damageState = packet.getDamageState();
-      this.warningLight = 0;
     }
   }
 
