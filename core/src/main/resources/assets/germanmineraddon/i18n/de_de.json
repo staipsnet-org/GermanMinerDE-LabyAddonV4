@@ -1,0 +1,62 @@
+{
+  "germanmineraddon": {
+    "hudWidgetCategory": {
+      "global": {
+        "name": "GermanMinerDE",
+        "description": "Zeigt die Informationen über GermanMiner"
+      }
+    },
+    "hudWidget": {
+      "balance": {
+        "name": "Banksystem",
+        "description": "Zeigt deine aktuelles Bargeld und Kontostand an",
+        "cash": "Bargeld",
+        "bank": "Kontostand"
+      },
+      "level": {
+        "name": "Spielerlevel",
+        "description": "Zeigt dein aktuelles Spielerlevel an",
+        "level": "Level",
+        "points": "Levelpunkte"
+      },
+      "vehicle": {
+        "name": "Fahrzeug-Anzeigen",
+        "description": "Zeigt Informationen zu deinem aktuellen Fahrzeugen an",
+        "engine": {
+          "starting": "Motor startet...",
+          "off": "Motor aus"
+        },
+        "gear": "Gang: %s",
+        "height": "Höhe: %s ft"
+      },
+      "loading": "Lädt..."
+    },
+    "settings": {
+      "name": "GermanMinerDE",
+      "enabled": {
+        "name": "Aktiviert"
+      },
+      "vehicleEngineHotkey": {
+        "name": "Motor (an/aus)",
+        "description": "Hotkey zum an-/ausschalten des Motors"
+      },
+      "vehicleSirenHotkey": {
+        "name": "Sirene (an/aus)",
+        "description": "Hotkey zum an-/ausschalten der Sirene"
+      },
+      "vehicleLimiterSwitchHotkey": {
+        "name": "Tempolimiter (an/aus)",
+        "description": "Hotkey zum an-/ausschalten des Tempomats"
+      },
+      "vehicleLimiterSetHotkey": {
+        "name": "Tempolimiter (aktuelles Tempo übernehmen)",
+        "description": "Hotkey zum übernehmen der aktuellen Geschwindigkeit"
+      },
+      "header": {
+        "hotkey": {
+          "name": "Fahrzeug-System"
+        }
+      }
+    }
+  }
+}
