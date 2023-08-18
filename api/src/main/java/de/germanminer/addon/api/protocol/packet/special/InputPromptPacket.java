@@ -25,6 +25,14 @@ public class InputPromptPacket implements GermanMinerPacket {
     this.exit = exit;
   }
 
+  public InputPromptPacket(final String value) {
+    this.value = value;
+  }
+
+  public InputPromptPacket(final Boolean exit) {
+    this.exit = exit;
+  }
+
   public String getMessage() {
     return this.message;
   }
