@@ -16,7 +16,6 @@ public class InputPromptPacketHandler implements PacketHandler<InputPromptPacket
           exit -> GermanMinerAddon.getInstance().sendPacket(new InputPromptPacket(exit)));
 
       Laby.labyAPI().minecraft().minecraftWindow().displayScreen(activity);
-
     }
   }
 

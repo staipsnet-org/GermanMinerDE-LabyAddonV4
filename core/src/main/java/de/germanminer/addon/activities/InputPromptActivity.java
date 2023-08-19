@@ -1,11 +1,8 @@
 package de.germanminer.addon.activities;
 
-import de.germanminer.addon.GermanMinerAddon;
-import de.germanminer.addon.GermanMinerServer;
 import de.germanminer.addon.api.protocol.packet.special.InputPromptPacket;
 import java.util.function.Consumer;
 import net.labymod.api.client.component.Component;
-import net.labymod.api.client.component.format.NamedTextColor;
 import net.labymod.api.client.gui.screen.Parent;
 import net.labymod.api.client.gui.screen.activity.Activity;
 import net.labymod.api.client.gui.screen.activity.AutoActivity;
