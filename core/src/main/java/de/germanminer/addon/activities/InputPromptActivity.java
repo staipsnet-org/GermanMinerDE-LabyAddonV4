@@ -33,9 +33,6 @@ public class InputPromptActivity extends Activity {
   public InputPromptActivity(final InputPromptPacket packet,
       final Consumer<String> onSubmit, final Consumer<Boolean> onCancel) {
     this.title = Component.text("§b" + packet.getMessage());
-
-    System.out.println("#FindMe: " + packet.getMessage());
-
     this.submitButton = Component.text(packet.getButtonSubmit());
     this.cancelButton = Component.text(packet.getButtonCancel());
     this.value = packet.getValue() == null ? "" : packet.getValue();
