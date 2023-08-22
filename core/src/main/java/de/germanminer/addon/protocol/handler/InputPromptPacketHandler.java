@@ -1,18 +1,26 @@
 package de.germanminer.addon.protocol.handler;
 
 import de.germanminer.addon.GermanMinerAddon;
-import de.germanminer.addon.controller.InputPromptController;
+import de.germanminer.addon.widgets.InputPromptActivity;
+import net.labymod.api.Laby;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
-import protocol.packet.special.InputPromptPacket;
+import packets.special.InputPromptPacket;
 
+/**
+ * Handler zum Verarbeiten des Eingabefeldes
+ */
 public class InputPromptPacketHandler implements PacketHandler<InputPromptPacket> {
 
   @Override
   public void handle(InputPromptPacket packet) {
-    InputPromptController inputPromptController = GermanMinerAddon.getInstance().getInputPromptController();
+    if (packet.getMessage() != null && packet.getButtonSubmit() != null
+        && packet.getButtonCancel() != null) {
+      InputPromptActivity inputPromptActivity = new InputPromptActivity(packet,
+          value -> GermanMinerAddon.getInstance().sendPacket(new InputPromptPacket(value)),
+          exit -> GermanMinerAddon.getInstance().sendPacket(new InputPromptPacket(exit)));
 
-    if (inputPromptController != null && packet.getMessage() != null && packet.getButtonSubmit() != null && packet.getButtonCancel() != null)
-      inputPromptController.openInputPrompt(packet.getMessage(), packet.getValue(), packet.getButtonSubmit(), packet.getButtonCancel());
+      Laby.labyAPI().minecraft().minecraftWindow().displayScreen(inputPromptActivity);
+    }
 
   }
 }

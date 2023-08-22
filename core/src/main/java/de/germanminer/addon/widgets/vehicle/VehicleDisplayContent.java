@@ -27,20 +27,20 @@ public class VehicleDisplayContent extends FlexibleContentWidget {
 
     this.warning = new IconWidget(VehicleDisplayTexture.WARNING_YELLOW.getIcon(false));
     this.warning.setCleanupOnDispose(true);
-    this.warning.addId("vehicle_warning");
+    this.warning.addId("warning");
     divWidget.addChild(this.warning);
 
     this.speedLimiter = new IconWidget(VehicleDisplayTexture.SPEED_LIMITER_ACTIVE.getIcon(false));
     this.speedLimiter.setCleanupOnDispose(true);
-    this.speedLimiter.addId("vehicle_speedLimiter");
+    this.speedLimiter.addId("speedLimiter");
     divWidget.addChild(this.speedLimiter);
 
     this.info = ComponentWidget.text("");
-    this.info.addId("vehicle_info");
+    this.info.addId("info");
     divWidget.addChild(this.info);
 
     this.speed = ComponentWidget.text("0");
-    this.speed.addId("vehicle_speed");
+    this.speed.addId("speed");
     divWidget.addChild(this.speed);
 
     this.background = new IconWidget(VehicleDisplayTexture.SPEEDOMETER_FUEL.getIcon(false));

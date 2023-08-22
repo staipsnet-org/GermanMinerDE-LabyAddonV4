@@ -1,19 +1,15 @@
 package de.germanminer.addon;
 
+import java.util.Arrays;
+import java.util.List;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.labymod.api.Laby;
 import net.labymod.api.client.network.server.AbstractServer;
 import net.labymod.api.client.network.server.ServerAddress;
-import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.api.event.Phase;
-import protocol.packet.GermanMinerPacket;
-import protocol.packet.info.AddonInfoPacket;
-import protocol.packet.info.ServerAddonInfoPacket;
-
-import java.util.Arrays;
-import java.util.List;
+import packets.info.AddonInfoPacket;
+import packets.info.ServerAddonInfoPacket;
 
 public class GermanMinerServer extends AbstractServer {
 
@@ -27,7 +23,8 @@ public class GermanMinerServer extends AbstractServer {
       ServerAddress.parse("51.77.73.236:25565"),
       ServerAddress.parse("51.89.46.236:26511"),
       ServerAddress.parse("51.89.46.236:26512"),
-      ServerAddress.parse("51.89.46.236:26513")
+      ServerAddress.parse("51.89.46.236:26513"),
+      ServerAddress.parse("mojang.broke-it.net")
   );
 
   private final GermanMinerAddon addon;
@@ -41,7 +38,11 @@ public class GermanMinerServer extends AbstractServer {
   public void loginOrSwitch(LoginPhase phase) {
     addon.setOnline(true);
     addon.sendPacket(new AddonInfoPacket(GermanMinerAddon.getVersion()));
+    sendDeprecatedPacket();
+  }
 
+  @Deprecated
+  private void sendDeprecatedPacket() {
     JsonArray addonsArray = new JsonArray();
 
     JsonObject addons = new JsonObject();
@@ -56,5 +57,19 @@ public class GermanMinerServer extends AbstractServer {
   @Override
   public void disconnect(Phase phase) {
     addon.setOnline(false);
+  }
+
+  @Override
+  public boolean isServer(ServerAddress address) {
+    if (address == null || address.getHost() == null) {
+      return false;
+    }
+
+    for (ServerAddress serverAddress : SERVER_ADDRESSES) {
+      if (serverAddress.matches(address)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

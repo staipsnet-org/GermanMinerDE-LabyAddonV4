@@ -1,17 +1,23 @@
 package de.germanminer.addon;
 
+import de.germanminer.addon.controller.HotKeyController;
 import de.germanminer.addon.controller.VehicleController;
 import de.germanminer.addon.core.generated.DefaultReferenceStorage;
-import de.germanminer.addon.controller.InputPromptController;
+import de.germanminer.addon.protocol.GermanMinerProtocol;
+import de.germanminer.addon.protocol.TranslationListenerPackets;
 import de.germanminer.addon.protocol.handler.InputPromptPacketHandler;
 import de.germanminer.addon.protocol.handler.NotificationPacketHandler;
 import de.germanminer.addon.protocol.handler.VehiclePositionPacketHandler;
-import de.germanminer.addon.widgets.BalanceWidget;
-import de.germanminer.addon.widgets.LevelWidget;
-import de.germanminer.addon.protocol.GermanMinerPayloadTranslationListener;
-import de.germanminer.addon.protocol.GermanMinerProtocol;
-import de.germanminer.addon.protocol.TranslationSide;
-import java.util.Arrays;
+import de.germanminer.addon.settings.AddonSetting;
+import de.germanminer.addon.utils.AddonUtils;
+import de.germanminer.addon.widgets.*;
+import de.germanminer.addon.widgets.bank.BankBalanceWidget;
+import de.germanminer.addon.widgets.bank.CashBalanceWidget;
+import de.germanminer.addon.widgets.bank.CompanyBalanceWidget;
+import de.germanminer.addon.widgets.bank.ExtraBalanceWidget;
+import de.germanminer.addon.widgets.level.LevelPointsWidget;
+import de.germanminer.addon.widgets.level.LevelWidget;
+import de.germanminer.addon.widgets.ontime.*;
 import de.germanminer.addon.widgets.vehicle.VehicleDisplayWidget;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
@@ -21,24 +27,33 @@ import net.labymod.serverapi.protocol.api.ProtocolApiBridge;
 import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
 import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifier;
 import org.jetbrains.annotations.Nullable;
-import protocol.packet.GermanMinerPacket;
-import protocol.packet.info.AddonInfoPacket;
-import protocol.packet.info.ServerAddonInfoPacket;
-import protocol.packet.special.InputPromptPacket;
-import protocol.packet.special.NotificationPacket;
-import protocol.packet.vehicle.VehicleDisplayPacket;
-import protocol.packet.vehicle.VehicleHotKeyPacket;
-import protocol.packet.vehicle.VehiclePositionPacket;
-import protocol.packet.widget.BalancePacket;
-import protocol.packet.widget.LevelPacket;
+import packets.GermanMinerPacket;
+import packets.special.InputPromptPacket;
+import packets.special.NotificationPacket;
+import packets.vehicle.VehicleDisplayPacket;
+import packets.vehicle.VehiclePositionPacket;
+import packets.widget.CompassPacket;
+import packets.widget.PowerupPacket;
+import packets.widget.VotePacket;
+import packets.widget.ZonePacket;
+import packets.widget.balance.BankBalancePacket;
+import packets.widget.balance.CashBalancePacket;
+import packets.widget.balance.CompanyBalancePacket;
+import packets.widget.balance.ExtraBalancePacket;
+import packets.widget.level.LevelPacket;
+import packets.widget.level.LevelPointsPacket;
+import packets.widget.ontime.*;
 
 @AddonMain
-public class GermanMinerAddon extends LabyAddon<GermanMinerConfiguration> {
+public class GermanMinerAddon extends LabyAddon<AddonSetting> {
 
   private static final int VERSION = 2; // ToDo Version immer anpassen bei Releases + auf Haupt-Repo hinterlegen
   private static GermanMinerAddon instance;
   private HudWidgetCategory hudWidgetCategory;
   private VehicleDisplayWidget vehicleDisplayWidget;
+  private ExtraBalanceWidget extraBalanceWidget;
+  private CalenderWidget calenderWidget;
+  private AddonUtils addonUtils;
   private boolean online = false;
 
   public static GermanMinerAddon getInstance() {
@@ -51,56 +66,109 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfiguration> {
 
   @Override
   protected void enable() {
-    instance = this;
+    this.logger().info("[GermanMinerDE] Initialising...");
     this.registerSettingCategory();
+    instance = this;
+    this.addonUtils = new AddonUtils(this);
 
     this.labyAPI().serverController().registerServer(new GermanMinerServer(this));
+    new HotKeyController(this);
 
     ProtocolService protocolService = ProtocolApiBridge.getProtocolApi().getProtocolService();
     protocolService.registerCustomProtocol(new GermanMinerProtocol());
-
-    Arrays.asList(
-        new GermanMinerPayloadTranslationListener(ServerAddonInfoPacket.class, "INFO", TranslationSide.OUTGOING),
-        new GermanMinerPayloadTranslationListener(AddonInfoPacket.class, "gmde-addon-info", TranslationSide.OUTGOING),
-        new GermanMinerPayloadTranslationListener(BalancePacket.class, "gmde-balance", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListener(LevelPacket.class, "gmde-level", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListener(NotificationPacket.class, "gmde-notification", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListener(InputPromptPacket.class, "gmde-input-prompt", TranslationSide.BOTH),
-        new GermanMinerPayloadTranslationListener(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.BOTH),
-        new GermanMinerPayloadTranslationListener(VehiclePositionPacket.class, "gmde-vehicle-position", TranslationSide.INCOMING),
-        new GermanMinerPayloadTranslationListener(VehicleHotKeyPacket.class, "gmde-vehicle-hotkey", TranslationSide.OUTGOING)
-    ).forEach(protocolService::registerTranslationListener);
 
     HudWidgetRegistry hudWidgetRegistry = this.labyAPI().hudWidgetRegistry();
     this.hudWidgetCategory = new HudWidgetCategory(this, "global");
     hudWidgetRegistry.categoryRegistry().register(this.hudWidgetCategory);
 
-    BalanceWidget balanceWidget = new BalanceWidget("balance");
-    protocolService.registerPacketHandler(BalancePacket.class, balanceWidget);
-    hudWidgetRegistry.register(balanceWidget);
+    this.logger().info("[GermanMinerDE] Registering Widgets...");
+
+    this.calenderWidget = new CalenderWidget("calender");
+    hudWidgetRegistry.register(this.calenderWidget);
+
+    for (TranslationListenerPackets translationListenerPackets : TranslationListenerPackets.values()) {
+      translationListenerPackets.registerListener(protocolService);
+    }
+
+    CashBalanceWidget cashBalanceWidget = new CashBalanceWidget("balanceCash");
+    BankBalanceWidget bankBalanceWidget = new BankBalanceWidget("balanceBank");
+    CompanyBalanceWidget companyBalanceWidget = new CompanyBalanceWidget("balanceCompany");
+    hudWidgetRegistry.register(cashBalanceWidget);
+    hudWidgetRegistry.register(bankBalanceWidget);
+    hudWidgetRegistry.register(companyBalanceWidget);
+    protocolService.registerPacketHandler(CashBalancePacket.class, cashBalanceWidget);
+    protocolService.registerPacketHandler(BankBalancePacket.class, bankBalanceWidget);
+    protocolService.registerPacketHandler(CompanyBalancePacket.class, companyBalanceWidget);
 
     LevelWidget levelWidget = new LevelWidget("level");
-    protocolService.registerPacketHandler(LevelPacket.class, levelWidget);
+    LevelPointsWidget levelPointsWidget = new LevelPointsWidget("levelPoints");
     hudWidgetRegistry.register(levelWidget);
+    hudWidgetRegistry.register(levelPointsWidget);
+    protocolService.registerPacketHandler(LevelPacket.class, levelWidget);
+    protocolService.registerPacketHandler(LevelPointsPacket.class, levelPointsWidget);
+
+    DailyOntimeWidget dailyOntimeWidget = new DailyOntimeWidget("ontimeDaily");
+    DutyOntimeWidget dutyOntimeWidget = new DutyOntimeWidget("ontimeDuty");
+    PaydayWidget paydayWidget = new PaydayWidget("ontimePayday");
+    TotalOntimeWidget totalOntimeWidget = new TotalOntimeWidget("ontimeTotal");
+    WeeklyOntimeWidget weeklyOntimeWidget = new WeeklyOntimeWidget("ontimeWeekly");
+
+    hudWidgetRegistry.register(dailyOntimeWidget);
+    hudWidgetRegistry.register(dutyOntimeWidget);
+    hudWidgetRegistry.register(paydayWidget);
+    hudWidgetRegistry.register(totalOntimeWidget);
+    hudWidgetRegistry.register(weeklyOntimeWidget);
+    protocolService.registerPacketHandler(DailyOntimePacket.class, dailyOntimeWidget);
+    protocolService.registerPacketHandler(DutyOntimePacket.class, dutyOntimeWidget);
+    protocolService.registerPacketHandler(PaydayPacket.class, paydayWidget);
+    protocolService.registerPacketHandler(TotalOntimePacket.class, totalOntimeWidget);
+    protocolService.registerPacketHandler(WeeklyOntimePacket.class, weeklyOntimeWidget);
+
+    CompassWidget compassWidget = new CompassWidget("compass");
+    hudWidgetRegistry.register(compassWidget);
+    protocolService.registerPacketHandler(CompassPacket.class, compassWidget);
+
+    ZoneWidget zoneWidget = new ZoneWidget("zone");
+    hudWidgetRegistry.register(zoneWidget);
+    protocolService.registerPacketHandler(ZonePacket.class, zoneWidget);
 
     this.vehicleDisplayWidget = new VehicleDisplayWidget(this, "vehicle");
-    protocolService.registerPacketHandler(VehicleDisplayPacket.class, this.vehicleDisplayWidget);
     hudWidgetRegistry.register(this.vehicleDisplayWidget);
+    protocolService.registerPacketHandler(VehicleDisplayPacket.class, vehicleDisplayWidget);
 
-    protocolService.registerPacketHandler(NotificationPacket.class, new NotificationPacketHandler());
+    this.extraBalanceWidget = new ExtraBalanceWidget("balanceExtra");
+    hudWidgetRegistry.register(this.extraBalanceWidget);
+    protocolService.registerPacketHandler(ExtraBalancePacket.class, extraBalanceWidget);
+
+    PowerupWidget powerupWidget = new PowerupWidget("powerup");
+    hudWidgetRegistry.register(powerupWidget);
+    protocolService.registerPacketHandler(PowerupPacket.class, powerupWidget);
+
+    VoteWidget voteWidget = new VoteWidget("vote");
+    hudWidgetRegistry.register(voteWidget);
+    protocolService.registerPacketHandler(VotePacket.class, voteWidget);
+
+    this.logger().info("[GermanMinerDE] Registering Features...");
+
+    protocolService.registerPacketHandler(NotificationPacket.class,
+        new NotificationPacketHandler());
     protocolService.registerPacketHandler(InputPromptPacket.class, new InputPromptPacketHandler());
-    protocolService.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
+    protocolService.registerPacketHandler(VehiclePositionPacket.class,
+        new VehiclePositionPacketHandler());
 
     this.logger().info("Enabled the Addon");
   }
 
   @Override
-  protected Class<GermanMinerConfiguration> configurationClass() {
-    return GermanMinerConfiguration.class;
+  protected Class<AddonSetting> configurationClass() {
+    return AddonSetting.class;
   }
 
-
   public void sendPacket(GermanMinerPacket packet) {
+    if (!enabled()) {
+      return;
+    }
+
     ProtocolApiBridge.getProtocolApi().getProtocolService()
         .getProtocol(PayloadChannelIdentifier.create("labymod", "germanminer")).sendPacket(packet);
   }
@@ -109,14 +177,12 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfiguration> {
     return this.online && this.configuration().enabled().get();
   }
 
-  public void setOnline(boolean online) {
-    this.online = online;
+  public AddonSetting getSetting() {
+    return this.configuration();
   }
 
-  @Nullable
-  public InputPromptController getInputPromptController() {
-    final DefaultReferenceStorage defaultReferenceStorage = this.referenceStorageAccessor();
-    return defaultReferenceStorage.getInputPromptController();
+  public void setOnline(boolean online) {
+    this.online = online;
   }
 
   @Nullable
@@ -125,8 +191,16 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfiguration> {
     return defaultReferenceStorage.getVehicleController();
   }
 
+  public AddonUtils getAddonUtils() {
+    return this.addonUtils;
+  }
+
   public VehicleDisplayWidget getVehicleDisplayWidget() {
     return vehicleDisplayWidget;
+  }
+
+  public CalenderWidget getCalenderWidget() {
+    return calenderWidget;
   }
 
   public HudWidgetCategory getHudWidgetCategory() {

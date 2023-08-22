@@ -5,15 +5,20 @@ import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.notification.Notification;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
-import protocol.packet.special.NotificationPacket;
+import packets.special.NotificationPacket;
+
 import java.util.UUID;
 
+/**
+ * Handler zum Verarbeiten der Benachrichtigungen
+ */
 public class NotificationPacketHandler implements PacketHandler<NotificationPacket> {
 
   @Override
   public void handle(NotificationPacket packet) {
-    if (packet.getTitle() == null || packet.getMessage() == null)
+    if (packet.getTitle() == null || packet.getMessage() == null) {
       return;
+    }
 
     Notification notification;
 

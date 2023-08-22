@@ -3,60 +3,261 @@
     "hudWidgetCategory": {
       "global": {
         "name": "GermanMinerDE",
-        "description": "Zeigt die Informationen über GermanMiner"
+        "description": "Shows information about GermanMinerDE"
       }
     },
     "hudWidget": {
       "balance": {
-        "name": "Banksystem",
-        "description": "Zeigt deine aktuelles Bargeld und Kontostand an",
-        "cash": "Bargeld",
-        "bank": "Kontostand"
+        "cash": {
+          "nameCash": "Cash",
+          "description": "Shows your current cash"
+        },
+        "bank": {
+          "nameBank": "Bank balance",
+          "description": "Shows your current account balance from the main account"
+        },
+        "company": {
+          "nameCompany": "Company balance",
+          "description": "Shows your current company balance"
+        }
+      },
+      "balanceCash": {
+        "name": "Cash"
+      },
+      "balanceBank": {
+        "name": "Bank balance"
+      },
+      "balanceCompany": {
+        "name": "Company balance"
+      },
+      "balanceExtra": {
+        "name": "Additional accounts balance"
       },
       "level": {
-        "name": "Spielerlevel",
-        "description": "Zeigt dein aktuelles Spielerlevel an",
-        "level": "Level",
-        "points": "Levelpunkte"
+        "name": "Playerlevel",
+        "description": "Shows your current player level"
+      },
+      "levelPoints": {
+        "name": "Levelpoints",
+        "description": "Shows your current level points"
       },
       "vehicle": {
-        "name": "Fahrzeug-Anzeigen",
-        "description": "Zeigt Informationen zu deinem aktuellen Fahrzeugen an",
+        "name": "Vehicles",
+        "description": "displays information about your current vehicle",
         "engine": {
-          "starting": "Motor startet...",
-          "off": "Motor aus"
+          "starting": "Engine starts...",
+          "off": "Engine off"
         },
-        "gear": "Gang: %s",
-        "height": "Höhe: %s ft"
+        "gear": "Gear: %s",
+        "height": "Height: %s ft"
       },
-      "loading": "Lädt..."
+      "ontime": {
+        "name": "Playtime",
+        "daily": "Daily playtime",
+        "duty": "Duty playtime",
+        "payday": "Next payday",
+        "total": "Entire playtime",
+        "weekly": "Weekly playtime"
+      },
+      "ontimeDaily": {
+        "name": "Daily playtime"
+      },
+      "ontimeDuty": {
+        "name": "Duty playtime"
+      },
+      "ontimeWeekly": {
+        "name": "Weekly playtime"
+      },
+      "ontimeTotal": {
+        "name": "Entire playtime"
+      },
+      "ontimePayday": {
+        "name": "Next payday"
+      },
+      "compass": {
+        "name": "Current compass target",
+        "notset": "none"
+      },
+      "zone": {
+        "name": "Location"
+      },
+      "vote": {
+        "name": "Current votes"
+      },
+      "powerup": {
+        "name": "PowerUp Cooldown",
+        "notset": "Ready"
+      },
+      "calender": {
+        "name": "Calender"
+      },
+      "loading": "Loading...",
+      "error": "error at loading..."
     },
     "settings": {
       "name": "GermanMinerDE",
       "enabled": {
-        "name": "Aktiviert"
+        "name": "Activated",
+        "description": "De/activate the addon"
       },
-      "vehicleEngineHotkey": {
-        "name": "Motor (an/aus)",
-        "description": "Hotkey zum an-/ausschalten des Motors"
+      "hotkey": {
+        "name": "Activated"
       },
-      "vehicleSirenHotkey": {
-        "name": "Sirene (an/aus)",
-        "description": "Hotkey zum an-/ausschalten der Sirene"
+      "bank": {
+        "enabled": "Activated",
+        "description": "De/activate the banking system feature",
+        "subSetting": {
+          "enabled": "Bank system settings",
+          "extra": "Additional accounts (de/activated)",
+          "company": "Company account (de/activated)",
+          "first": "1. Additional account",
+          "second": "2. Additional account",
+          "third": "3. Additional account"
+        }
       },
-      "vehicleLimiterSwitchHotkey": {
-        "name": "Tempolimiter (an/aus)",
-        "description": "Hotkey zum an-/ausschalten des Tempomats"
+      "ontime": {
+        "enabled": "Activated",
+        "description": "De/activate the ontime feature",
+        "subSetting": {
+          "header": {
+            "name": "Advanced Settings - Ontime"
+          },
+          "name": "Settings Ontime",
+          "daily": "Daily playtime (de/activate)",
+          "weekly": "Weekly playtime (de/activate)",
+          "total": "Entire playtime (de/activate)",
+          "duty": "Duty playtime (de/activate)",
+          "payday": "Next payday (de/activate)"
+        }
       },
-      "vehicleLimiterSetHotkey": {
-        "name": "Tempolimiter (aktuelles Tempo übernehmen)",
-        "description": "Hotkey zum übernehmen der aktuellen Geschwindigkeit"
+      "enabledHotkey": {
+        "name": "Vehicle system (de/activate)"
+      },
+      "vehicleSetting": {
+        "name": "Advanced vehicle settings",
+        "vehicleEngineHotkey": {
+          "name": "Engine (on/off)"
+        },
+        "vehicleSirenHotkey": {
+          "name": "Siren (on/off)"
+        },
+        "vehicleLimiterSwitchHotkey": {
+          "name": "Speed limiter (on/off)"
+        },
+        "vehicleLimiterSetHotkey": {
+          "name": "Speed limiter (accept current speed)"
+        }
+      },
+      "enabledBanksystem": {
+        "name": "Bank system (de/activate)"
+      },
+      "bankSetting": {
+        "name": "Advanced bank settings",
+        "enabledExtra": {
+          "name": "Additional accounts (de/activate)"
+        },
+        "enabledCompany": {
+          "name": "Company account (de/activate)"
+        },
+        "bankCustomAccount1": {
+          "name": "1. Additional account"
+        },
+        "bankCustomAccount2": {
+          "name": "2. Additional account"
+        },
+        "bankCustomAccount3": {
+          "name": "3. Additional account"
+        }
+      },
+      "enabledOntime": {
+        "name": "Ontime (de/activate)"
+      },
+      "ontimeSetting": {
+        "name": "Advanced ontime settings",
+        "dailyOntime": {
+          "name": "Daily playtime (de/activate)"
+        },
+        "weeklyOntime": {
+          "name": "Weekly playtime (de/activate)"
+        },
+        "dutyOntime": {
+          "name": "Duty playtime (de/activate)"
+        },
+        "totalOntime": {
+          "name": "Entire playtime (de/activate)"
+        },
+        "payday": {
+          "name": "Next payday (de/activate)"
+        }
+      },
+      "calenderSetting": {
+        "name": "calendar settings",
+        "monday": {
+          "name": "Monday"
+        },
+        "tuesday": {
+          "name": "Tuesday"
+        },
+        "wednesday": {
+          "name": "Wednesday"
+        },
+        "thursday": {
+          "name": "Thursday"
+        },
+        "friday": {
+          "name": "Friday"
+        },
+        "saturday": {
+          "name": "Saturday"
+        },
+        "sunday": {
+          "name": "Sunday"
+        }
+      },
+      "subSettings": {
+        "name": "Miscellaneous",
+        "voteEnabled": {
+          "name": "Voting system (de/activated)"
+        },
+        "zoneEnabled": {
+          "name": "Current location (de/activated)"
+        },
+        "compassEnabled": {
+          "name": "Compass system (de/activated)"
+        },
+        "powerUpEnabled": {
+          "name": "PowerUp-Cooldown (de/activated)"
+        },
+        "levelEnabled": {
+          "name": "Level system (de/activated)"
+        }
       },
       "header": {
         "hotkey": {
-          "name": "Fahrzeug-System"
+          "name": "vehicles"
+        },
+        "banksystem": {
+          "name": "banking system"
+        },
+        "ontime": {
+          "name": "ontime"
+        },
+        "calender": {
+          "name": "calender"
+        },
+        "miscellaneous": {
+          "name": "Miscellaneous"
         }
       }
+    },
+    "subSettings": {
+      "name": "Miscellaneous"
+    },
+    "header": {
+      "hotkey": "vehicle system",
+      "banksystem": "banking system",
+      "ontime": "ontime",
+      "miscellaneous": "Miscellaneous"
     }
   }
 }
