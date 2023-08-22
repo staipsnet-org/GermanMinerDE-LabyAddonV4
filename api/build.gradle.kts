@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation("org.reflections:reflections:0.10.2")
     labyApi("api")
 
     // If you want to use external libraries, you can do that here.
