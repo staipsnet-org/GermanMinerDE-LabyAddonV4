@@ -9,26 +9,15 @@ import de.germanminer.addon.protocol.handler.InputPromptPacketHandler;
 import de.germanminer.addon.protocol.handler.NotificationPacketHandler;
 import de.germanminer.addon.protocol.handler.VehiclePositionPacketHandler;
 import de.germanminer.addon.settings.AddonSetting;
-import de.germanminer.addon.settings.AddonSubSetting;
-import de.germanminer.addon.settings.BankSetting;
-import de.germanminer.addon.settings.OntimeSetting;
 import de.germanminer.addon.utils.AddonUtils;
-import de.germanminer.addon.widgets.CalenderWidget;
-import de.germanminer.addon.widgets.CompassWidget;
-import de.germanminer.addon.widgets.PowerupWidget;
-import de.germanminer.addon.widgets.VoteWidget;
-import de.germanminer.addon.widgets.ZoneWidget;
+import de.germanminer.addon.widgets.*;
 import de.germanminer.addon.widgets.bank.BankBalanceWidget;
 import de.germanminer.addon.widgets.bank.CashBalanceWidget;
 import de.germanminer.addon.widgets.bank.CompanyBalanceWidget;
 import de.germanminer.addon.widgets.bank.ExtraBalanceWidget;
 import de.germanminer.addon.widgets.level.LevelPointsWidget;
 import de.germanminer.addon.widgets.level.LevelWidget;
-import de.germanminer.addon.widgets.ontime.DailyOntimeWidget;
-import de.germanminer.addon.widgets.ontime.DutyOntimeWidget;
-import de.germanminer.addon.widgets.ontime.PaydayWidget;
-import de.germanminer.addon.widgets.ontime.TotalOntimeWidget;
-import de.germanminer.addon.widgets.ontime.WeeklyOntimeWidget;
+import de.germanminer.addon.widgets.ontime.*;
 import de.germanminer.addon.widgets.vehicle.VehicleDisplayWidget;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
@@ -53,11 +42,7 @@ import packets.widget.balance.CompanyBalancePacket;
 import packets.widget.balance.ExtraBalancePacket;
 import packets.widget.level.LevelPacket;
 import packets.widget.level.LevelPointsPacket;
-import packets.widget.ontime.DailyOntimePacket;
-import packets.widget.ontime.DutyOntimePacket;
-import packets.widget.ontime.PaydayPacket;
-import packets.widget.ontime.TotalOntimePacket;
-import packets.widget.ontime.WeeklyOntimePacket;
+import packets.widget.ontime.*;
 
 @AddonMain
 public class GermanMinerAddon extends LabyAddon<AddonSetting> {
@@ -81,6 +66,8 @@ public class GermanMinerAddon extends LabyAddon<AddonSetting> {
 
   @Override
   protected void enable() {
+    this.logger().info("[GermanMinerDE] Initialising...");
+    this.registerSettingCategory();
     instance = this;
     this.addonUtils = new AddonUtils(this);
 
@@ -94,15 +81,13 @@ public class GermanMinerAddon extends LabyAddon<AddonSetting> {
     this.hudWidgetCategory = new HudWidgetCategory(this, "global");
     hudWidgetRegistry.categoryRegistry().register(this.hudWidgetCategory);
 
+    this.logger().info("[GermanMinerDE] Registering Widgets...");
+
     this.calenderWidget = new CalenderWidget("calender");
     hudWidgetRegistry.register(this.calenderWidget);
 
-    this.registerSettingCategory(); // MUSS IMMER NACH DEM KALENDER WIDGET KOMMEN
-
     for (TranslationListenerPackets translationListenerPackets : TranslationListenerPackets.values()) {
       translationListenerPackets.registerListener(protocolService);
-      //translationListenerProtocol.registerWidget(hudWidgetRegistry, protocolService);
-      // ToDo: Debugnachricht ausgeben lassen
     }
 
     CashBalanceWidget cashBalanceWidget = new CashBalanceWidget("balanceCash");
@@ -163,6 +148,8 @@ public class GermanMinerAddon extends LabyAddon<AddonSetting> {
     hudWidgetRegistry.register(voteWidget);
     protocolService.registerPacketHandler(VotePacket.class, voteWidget);
 
+    this.logger().info("[GermanMinerDE] Registering Features...");
+
     protocolService.registerPacketHandler(NotificationPacket.class,
         new NotificationPacketHandler());
     protocolService.registerPacketHandler(InputPromptPacket.class, new InputPromptPacketHandler());
@@ -177,10 +164,10 @@ public class GermanMinerAddon extends LabyAddon<AddonSetting> {
     return AddonSetting.class;
   }
 
-
   public void sendPacket(GermanMinerPacket packet) {
-    if (!enabled())
+    if (!enabled()) {
       return;
+    }
 
     ProtocolApiBridge.getProtocolApi().getProtocolService()
         .getProtocol(PayloadChannelIdentifier.create("labymod", "germanminer")).sendPacket(packet);

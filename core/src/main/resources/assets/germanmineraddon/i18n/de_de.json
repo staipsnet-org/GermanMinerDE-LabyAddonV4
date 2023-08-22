@@ -127,8 +127,7 @@
           "weekly": "Wöchentliche Spielzeit (de/aktivieren)",
           "total": "Gesamte Spielzeit (de/aktivieren)",
           "duty": "Dienstzeit (de/aktivieren)",
-          "payday": "Nächster Payday (de/aktivieren)",
-          "format": "Formatierung"
+          "payday": "Nächster Payday (de/aktivieren)"
         }
       },
       "enabledHotkey": {
@@ -189,9 +188,6 @@
         },
         "payday": {
           "name": "Nächster Payday (de/aktivieren)"
-        },
-        "ontimeFormat": {
-          "name": "Formatierung"
         }
       },
       "calenderSetting": {

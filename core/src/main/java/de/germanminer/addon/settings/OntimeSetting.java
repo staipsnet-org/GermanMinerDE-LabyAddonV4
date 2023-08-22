@@ -1,11 +1,8 @@
 package de.germanminer.addon.settings;
 
-import de.germanminer.addon.widgets.ontime.OntimeFormatSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
-import net.labymod.api.client.gui.screen.widget.widgets.input.dropdown.DropdownWidget.DropdownSetting;
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
-import net.labymod.api.configuration.settings.annotation.SettingSection;
 
 public class OntimeSetting extends Config {
 
@@ -19,9 +16,6 @@ public class OntimeSetting extends Config {
   private final ConfigProperty<Boolean> totalOntime = new ConfigProperty<>(true);
   @SwitchSetting
   private final ConfigProperty<Boolean> payday = new ConfigProperty<>(true);
-  @DropdownSetting
-  private final ConfigProperty<OntimeFormatSetting> ontimeFormat = new ConfigProperty<>(
-      OntimeFormatSetting.DHM);
 
   public boolean isDailyOntimeEnabled() {
     return dailyOntime.get();
@@ -41,9 +35,5 @@ public class OntimeSetting extends Config {
 
   public boolean isPaydayEnabled() {
     return payday.get();
-  }
-
-  public OntimeFormatSetting getOntimeFormat() {
-    return ontimeFormat.get();
   }
 }
