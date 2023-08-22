@@ -1,0 +1,267 @@
+{
+  "germanmineraddon": {
+    "hudWidgetCategory": {
+      "global": {
+        "name": "GermanMinerDE",
+        "description": "Zeigt Informationen über GermanMinerDE"
+      }
+    },
+    "hudWidget": {
+      "balance": {
+        "cash": {
+          "nameCash": "Bargeld",
+          "description": "Zeigt dein aktuelles Bargeld an"
+        },
+        "bank": {
+          "nameBank": "Kontostand",
+          "description": "Zeigt deinen Kontostand vom Hauptkonto an"
+        },
+        "company": {
+          "nameCompany": "Firma",
+          "description": ""
+        }
+      },
+      "balanceCash": {
+        "name": "Bargeld"
+      },
+      "balanceBank": {
+        "name": "Kontostand"
+      },
+      "balanceCompany": {
+        "name": "Firma"
+      },
+      "balanceExtra": {
+        "name": "Zusatzkonten"
+      },
+      "level": {
+        "name": "Spielerlevel",
+        "description": "Zeigt dein aktuelles Spielerlevel an"
+      },
+      "levelPoints": {
+        "name": "Levelpunkte",
+        "description": "Zeigt deine aktuellen Levelpunkte an"
+      },
+      "vehicle": {
+        "name": "Fahrzeuge",
+        "description": "Zeigt Informationen zu deinem aktuellen Fahrzeug an",
+        "engine": {
+          "starting": "Motor startet...",
+          "off": "Motor aus"
+        },
+        "gear": "Gang: %s",
+        "height": "Höhe: %s ft"
+      },
+      "ontime": {
+        "name": "Spielzeit",
+        "daily": "Tägliche Spielzeit",
+        "duty": "Dienstzeit",
+        "payday": "Nächster Payday",
+        "total": "Gesamte Spielzeit",
+        "weekly": "Wöchentliche Spielzeit"
+      },
+      "ontimeDaily": {
+        "name": "Tägliche Zeit"
+      },
+      "ontimeDuty": {
+        "name": "Dienstzeit"
+      },
+      "ontimeWeekly": {
+        "name": "Wochenzeit"
+      },
+      "ontimeTotal": {
+        "name": "Gesamte Zeit"
+      },
+      "ontimePayday": {
+        "name": "Payday"
+      },
+      "compass": {
+        "name": "Aktuelles Kompassziel",
+        "notset": "Keines"
+      },
+      "zone": {
+        "name": "Ort"
+      },
+      "vote": {
+        "name": "Aktuelle Votes"
+      },
+      "powerup": {
+        "name": "PowerUp Cooldown",
+        "notset": "Bereit"
+      },
+      "calender": {
+        "name": "Kalender"
+      },
+      "loading": "Lade...",
+      "error": "Fehler beim Laden..."
+    },
+    "settings": {
+      "name": "GermanMinerDE",
+      "enabled": {
+        "name": "Aktiviert",
+        "description": "De/aktiviere das Addon"
+      },
+      "hotkey": {
+        "name": "Aktiviert"
+      },
+      "bank": {
+        "enabled": "Aktiviert",
+        "description": "De/aktiviert das Banksystem-Feature",
+        "subSetting": {
+          "enabled": "Einstellungen Banksystem",
+          "extra": "Zusatzkonten (de/aktiviert)",
+          "company": "Firmenkonto (de/aktiviert)",
+          "first": "1. Zusatzkonto",
+          "second": "2. Zusatzkonto",
+          "third": "3. Zusatzkonto"
+        }
+      },
+      "ontime": {
+        "enabled": "Aktiviert",
+        "description": "De/aktiviere das Ontime-Feature",
+        "subSetting": {
+          "header": {
+            "name": "Erweiterte Einstellungen - Ontime"
+          },
+          "name": "Einstellungen Ontime",
+          "daily": "Tägliche Spielzeit (de/aktivieren)",
+          "weekly": "Wöchentliche Spielzeit (de/aktivieren)",
+          "total": "Gesamte Spielzeit (de/aktivieren)",
+          "duty": "Dienstzeit (de/aktivieren)",
+          "payday": "Nächster Payday (de/aktivieren)",
+          "format": "Formatierung"
+        }
+      },
+      "enabledHotkey": {
+        "name": "Fahrzeug-System (de/aktivieren)"
+      },
+      "vehicleSetting": {
+        "name": "Erweiterte Fahrzeugeinstellungen",
+        "vehicleEngineHotkey": {
+          "name": "Motor (an/aus)"
+        },
+        "vehicleSirenHotkey": {
+          "name": "Sirene (an/aus)"
+        },
+        "vehicleLimiterSwitchHotkey": {
+          "name": "Tempolimiter (an/aus)"
+        },
+        "vehicleLimiterSetHotkey": {
+          "name": "Tempolimiter (aktuelles Tempo übernehmen)"
+        }
+      },
+      "enabledBanksystem": {
+        "name": "Banksystem (de/aktivieren)"
+      },
+      "bankSetting": {
+        "name": "Erweiterte Bankeinstellungen",
+        "enabledExtra": {
+          "name": "Extrakonten (de/aktivieren)"
+        },
+        "enabledCompany": {
+          "name": "Firmenkonto (de/aktivieren)"
+        },
+        "bankCustomAccount1": {
+          "name": "1. Zusatzkonto"
+        },
+        "bankCustomAccount2": {
+          "name": "2. Zusatzkonto"
+        },
+        "bankCustomAccount3": {
+          "name": "3. Zusatzkonto"
+        }
+      },
+      "enabledOntime": {
+        "name": "Ontime (de/aktivieren)"
+      },
+      "ontimeSetting": {
+        "name": "Erweiterte Ontimeeinstellungen",
+        "dailyOntime": {
+          "name": "Tägliche Spielzeit (de/aktivieren)"
+        },
+        "weeklyOntime": {
+          "name": "Wöchentliche Spielzeit (de/aktivieren)"
+        },
+        "dutyOntime": {
+          "name": "Dienstzeit (de/aktivieren)"
+        },
+        "totalOntime": {
+          "name": "Gesamte Spielzeit (de/aktivieren)"
+        },
+        "payday": {
+          "name": "Nächster Payday (de/aktivieren)"
+        },
+        "ontimeFormat": {
+          "name": "Formatierung"
+        }
+      },
+      "calenderSetting": {
+        "name": "Kalendereinstellungen",
+        "monday": {
+          "name": "Montag"
+        },
+        "tuesday": {
+          "name": "Dienstag"
+        },
+        "wednesday": {
+          "name": "Mittwoch"
+        },
+        "thursday": {
+          "name": "Donnerstag"
+        },
+        "friday": {
+          "name": "Freitag"
+        },
+        "saturday": {
+          "name": "Samstag"
+        },
+        "sunday": {
+          "name": "Sonntag"
+        }
+      },
+      "subSettings": {
+        "name": "Sonstige Einstellungen",
+        "voteEnabled": {
+          "name": "Votesystem (de/aktiviert)"
+        },
+        "zoneEnabled": {
+          "name": "Ortungszone (de/aktiviert)"
+        },
+        "compassEnabled": {
+          "name": "Kompasssystem (de/aktiviert)"
+        },
+        "powerUpEnabled": {
+          "name": "PowerUp-Cooldown (de/aktiviert)"
+        },
+        "levelEnabled": {
+          "name": "Levelsystem (de/aktiviert)"
+        }
+      },
+      "header": {
+        "hotkey": {
+          "name": "Fahrzeuge"
+        },
+        "banksystem": {
+          "name": "Banksystem"
+        },
+        "ontime": {
+          "name": "Ontime"
+        },
+        "calender": {
+          "name": "Kalender"
+        },
+        "miscellaneous": {
+          "name": "Sonstiges"
+        }
+      }
+    },
+    "subSettings": {
+      "name": "Erweiterte Einstellungen"
+    },
+    "header": {
+      "hotkey": "Fahrzeug-System",
+      "banksystem": "Banksystem",
+      "ontime": "Ontime",
+      "miscellaneous": "Sonstiges"
+    }
+  }
+}
