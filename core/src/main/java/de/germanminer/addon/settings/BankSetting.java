@@ -5,7 +5,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.TextFieldWidget.Te
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 
-public class BankSubSetting extends Config {
+public class BankSetting extends Config {
 
   @SwitchSetting
   private final ConfigProperty<Boolean> enabledExtra = new ConfigProperty<>(true);

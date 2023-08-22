@@ -4,26 +4,18 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.Switc
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 
-public class GermanMinerSubSetting extends Config {
+public class AddonSubSetting extends Config {
 
   @SwitchSetting
-  private ConfigProperty<Boolean> jailEnabled = new ConfigProperty<>(true);
+  private final ConfigProperty<Boolean> voteEnabled = new ConfigProperty<>(true);
   @SwitchSetting
-  private ConfigProperty<Boolean> vitalEnabled = new ConfigProperty<>(true);
+  private final ConfigProperty<Boolean> zoneEnabled = new ConfigProperty<>(true);
   @SwitchSetting
-  private ConfigProperty<Boolean> voteEnabled = new ConfigProperty<>(true);
+  private final ConfigProperty<Boolean> compassEnabled = new ConfigProperty<>(true);
   @SwitchSetting
-  private ConfigProperty<Boolean> zoneEnabled = new ConfigProperty<>(true);
+  private final ConfigProperty<Boolean> powerUpEnabled = new ConfigProperty<>(true);
   @SwitchSetting
-  private ConfigProperty<Boolean> compassEnabled = new ConfigProperty<>(true);
-
-  public boolean isJailEnabled() {
-    return jailEnabled.get();
-  }
-
-  public boolean isVitalEnabled() {
-    return vitalEnabled.get();
-  }
+  private final ConfigProperty<Boolean> levelEnabled = new ConfigProperty<>(true);
 
   public boolean isVoteEnabled() {
     return voteEnabled.get();
@@ -36,4 +28,10 @@ public class GermanMinerSubSetting extends Config {
   public boolean isCompassEnabled() {
     return compassEnabled.get();
   }
+
+  public boolean isPowerUpEnabled() {
+    return powerUpEnabled.get();
+  }
+
+  public boolean isLevelEnabled() { return levelEnabled.get(); }
 }

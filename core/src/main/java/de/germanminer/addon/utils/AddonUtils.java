@@ -1,4 +1,6 @@
-package de.germanminer.addon;
+package de.germanminer.addon.utils;
+
+import de.germanminer.addon.GermanMinerAddon;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

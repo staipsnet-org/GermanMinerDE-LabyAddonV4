@@ -1,8 +1,11 @@
-package protocol.packet.widget.ontime;
+package packets.widget.ontime;
 
 import com.google.gson.annotations.SerializedName;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten vom Ontimesystem
+ */
 public class DutyOntimePacket implements GermanMinerPacket {
 
   @SerializedName("duty_ontime")

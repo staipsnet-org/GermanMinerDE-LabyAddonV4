@@ -1,10 +1,10 @@
-package protocol.packet.widget.ontime;
+package de.germanminer.addon.widgets.ontime;
 
 public enum OntimeFormatSetting {
-  MINUTEN,
-  STUNDEN,
-  TAGE,
-  MINUTEN_STUNDEN,
-  MINUTEN_STUNDEN_TAGE,
-  STUNDEN_TAGE
+  DHM,
+  DH,
+  D,
+  HM,
+  H,
+  M
 }

@@ -1,11 +1,14 @@
-package protocol.packet.vehicle;
+package packets.vehicle;
 
 import com.google.gson.annotations.SerializedName;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 import vehicle.Vehicle;
 
 import java.util.List;
 
+/**
+ * Packet zum Verarbeiten der besseren Darstellung (Vehicles)
+ */
 public class VehiclePositionPacket implements GermanMinerPacket {
 
   @SerializedName("entities")

@@ -14,7 +14,7 @@ import packets.GermanMinerPacket;
 /**
  * Listener um Packets zu verarbeiten
  */
-public class GermanMinerPayloadTranslationListener extends AbstractPayloadTranslationListener {
+public class PayloadTranslationListener extends AbstractPayloadTranslationListener {
 
   private static final Gson GSON = new Gson();
 
@@ -22,8 +22,10 @@ public class GermanMinerPayloadTranslationListener extends AbstractPayloadTransl
   private final String oldMessageKey;
   private final TranslationSide translationSide;
 
-  public GermanMinerPayloadTranslationListener(Class<? extends GermanMinerPacket> clazz, String oldMessageKey, TranslationSide translationSide) {
-    super(PayloadChannelIdentifier.create("labymod3", "main"), PayloadChannelIdentifier.create("labymod", "germanminer"));
+  public PayloadTranslationListener(Class<? extends GermanMinerPacket> clazz, String oldMessageKey,
+      TranslationSide translationSide) {
+    super(PayloadChannelIdentifier.create("labymod3", "main"),
+        PayloadChannelIdentifier.create("labymod", "germanminer"));
     this.clazz = clazz;
     this.oldMessageKey = oldMessageKey;
     this.translationSide = translationSide;
@@ -41,24 +43,26 @@ public class GermanMinerPayloadTranslationListener extends AbstractPayloadTransl
       }
 
     } catch (PayloadReaderException e) {
-      throw new PayloadReaderException("", e); // Todo Hurensohn
+      throw new PayloadReaderException("No message key could be read", e);
     }
 
     try {
       String messageContent = payloadReader.readString();
       return translateIncomingPayload(new JsonParser().parse(messageContent));
     } catch (PayloadReaderException e) {
-      throw new PayloadReaderException("", e); // Todo Hurensohn
+      throw new PayloadReaderException("No message content could be read", e);
     }
   }
 
   @Override
   public <T extends Packet> byte[] translateOutgoingPayload(T packet) {
-    if (packet.getClass() != this.clazz)
+    if (packet.getClass() != this.clazz) {
       return null;
+    }
 
-    if (translationSide == TranslationSide.INCOMING)
+    if (translationSide == TranslationSide.INCOMING) {
       return new byte[0];
+    }
 
     PayloadWriter payloadWriter = new PayloadWriter();
     payloadWriter.writeString(this.oldMessageKey);
@@ -67,8 +71,9 @@ public class GermanMinerPayloadTranslationListener extends AbstractPayloadTransl
   }
 
   public byte[] translateIncomingPayload(JsonElement jsonElement) {
-    if (this.translationSide == TranslationSide.OUTGOING)
+    if (this.translationSide == TranslationSide.OUTGOING) {
       return new byte[0];
+    }
 
     return writePacketBinary(GSON.fromJson(jsonElement, this.clazz));
   }

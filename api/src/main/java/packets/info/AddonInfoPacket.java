@@ -1,7 +1,10 @@
-package protocol.packet.info;
+package packets.info;
 
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Senden der aktuellen Labymod Version an den Server
+ */
 public class AddonInfoPacket implements GermanMinerPacket {
 
   private int version;

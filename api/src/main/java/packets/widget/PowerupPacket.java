@@ -1,8 +1,11 @@
-package protocol.packet.widget;
+package packets.widget;
 
 import java.time.LocalDateTime;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten vom Powerup-System
+ */
 public class PowerupPacket implements GermanMinerPacket {
 
   private String cooldown;

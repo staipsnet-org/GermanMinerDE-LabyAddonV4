@@ -1,9 +1,12 @@
-package protocol.packet.vehicle;
+package packets.vehicle;
 
 import com.google.gson.annotations.SerializedName;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 import vehicle.HotKey;
 
+/**
+ * Packet zum Verarbeiten von Hotkeys (Vehicles)
+ */
 public class VehicleHotKeyPacket implements GermanMinerPacket {
 
   @SerializedName("function")

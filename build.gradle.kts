@@ -4,7 +4,7 @@ plugins {
     id("net.labymod.gradle.addon")
 }
 
-group = "org.example"
+group = "de.germanminer"
 version = "1.0.0"
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -16,7 +16,7 @@ labyMod {
         displayName = "GermanMinerDE"
         author = "GermanMinerDE"
         description = "Offizielles Addon zur Verbesserung von diversen Spielbereichen auf dem Real-Life-Server GermanMinerDE"
-        minecraftVersion = "*"
+        minecraftVersion = "1.12.2"
         version = System.getenv().getOrDefault("VERSION", "0.0.1")
     }
 
@@ -56,6 +56,9 @@ subprojects {
         maven("https://libraries.minecraft.net/")
         maven("https://repo.spongepowered.org/repository/maven-public/")
     }
+}
+dependencies {
+    implementation("org.reflections:reflections:0.10.2")
 }
 
 fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionProvider, gameVersion: String) {

@@ -1,9 +1,6 @@
-package de.germanminer.addon.widgets;
+package de.germanminer.addon.widgets.bank;
 
 import de.germanminer.addon.GermanMinerAddon;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
@@ -11,24 +8,23 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.client.resources.ResourceLocation;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
-import protocol.packet.widget.BalancePacket;
+import packets.widget.balance.CashBalancePacket;
 
+/**
+ * Widget zum Anzeigen vom Bargeld
+ */
 public class CashBalanceWidget extends TextHudWidget<TextHudWidgetConfig> implements
-    PacketHandler<BalancePacket> {
+    PacketHandler<CashBalancePacket> {
 
   private final Icon icon;
-  private final DecimalFormat decimalFormat;
   private TextLine cash;
 
   public CashBalanceWidget(String id) {
     super(id);
     super.bindCategory(GermanMinerAddon.getInstance().getHudWidgetCategory());
 
-    this.icon = Icon.texture(ResourceLocation.create("germanmineraddon", "textures/bankcard.png"))
+    this.icon = Icon.texture(ResourceLocation.create("germanmineraddon", "textures/euro.png"))
         .resolution(64, 64);
-
-    this.decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.GERMANY);
-    this.decimalFormat.applyPattern("#,##0.00");
   }
 
   @Override
@@ -36,7 +32,7 @@ public class CashBalanceWidget extends TextHudWidget<TextHudWidgetConfig> implem
     super.load(config);
 
     cash = super.createLine(
-        Component.translatable(String.format("germanmineraddon.hudWidget.%s.cash", super.getId())),
+        Component.translatable(String.format("germanmineraddon.hudWidget.%s.name", super.getId())),
         Component.translatable("germanmineraddon.hudWidget.loading"));
 
     super.setIcon(icon);
@@ -44,16 +40,14 @@ public class CashBalanceWidget extends TextHudWidget<TextHudWidgetConfig> implem
 
   @Override
   public boolean isVisibleInGame() {
-    return GermanMinerAddon.getInstance().enabled();
+    return GermanMinerAddon.getInstance().enabled() && GermanMinerAddon.getInstance().getSetting()
+        .isBankEnabled();
   }
 
   @Override
-  public void handle(BalancePacket packet) {
-    cash.updateAndFlush(packet.getCash() != null ? format(packet.getCash())
+  public void handle(CashBalancePacket packet) {
+    cash.updateAndFlush(packet.getCash() != null ? GermanMinerAddon.getInstance().getAddonUtils()
+        .formatAmount(packet.getCash())
         : Component.translatable("germanmineraddon.hudWidget.error"));
-  }
-
-  private String format(double amount) {
-    return this.decimalFormat.format(amount) + " Euro";
   }
 }

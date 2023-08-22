@@ -1,2 +1,5 @@
-package de.germanminer.addon.utils;public @interface GMWidget {
+package de.germanminer.addon.utils;
+
+public @interface GMWidget {
+
 }

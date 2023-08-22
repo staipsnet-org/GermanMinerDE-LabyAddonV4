@@ -1,7 +1,10 @@
-package protocol.packet.vehicle;
+package packets.vehicle;
 
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten des Tachos (Vehicles)
+ */
 public class VehicleDisplayPacket implements GermanMinerPacket {
 
   private Boolean modusEnabled;
@@ -40,7 +43,7 @@ public class VehicleDisplayPacket implements GermanMinerPacket {
     this.gearPosition = gearPosition;
   }
 
-  public Boolean getModusEnabled() {
+  public Boolean isModusEnabled() {
     return modusEnabled;
   }
 

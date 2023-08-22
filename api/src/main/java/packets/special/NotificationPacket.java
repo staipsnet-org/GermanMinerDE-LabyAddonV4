@@ -1,7 +1,10 @@
-package protocol.packet.special;
+package packets.special;
 
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Senden / Empfangen von Benachrichtigungen
+ */
 public class NotificationPacket implements GermanMinerPacket {
 
   private String title;

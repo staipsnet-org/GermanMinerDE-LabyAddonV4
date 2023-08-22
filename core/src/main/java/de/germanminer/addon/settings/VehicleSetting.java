@@ -5,7 +5,7 @@ import net.labymod.api.client.gui.screen.widget.widgets.input.KeybindWidget.KeyB
 import net.labymod.api.configuration.loader.Config;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 
-public class VehicleSubSetting extends Config {
+public class VehicleSetting extends Config {
 
   @KeyBindSetting
   private final ConfigProperty<Key> vehicleEngineHotkey = new ConfigProperty<>(Key.M);

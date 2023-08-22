@@ -1,8 +1,11 @@
-package protocol.packet.widget.level;
+package packets.widget.level;
 
 import com.google.gson.annotations.SerializedName;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten vom Levelsystem
+ */
 public class LevelPacket implements GermanMinerPacket {
 
   @SerializedName("current_level")

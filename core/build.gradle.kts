@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     api(project(":api"))
+    implementation("org.reflections:reflections:0.10.2")
 
     // If you want to use external libraries, you can do that here.
     // The dependencies that are specified here are loaded into your project but will also

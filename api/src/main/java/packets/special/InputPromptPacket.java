@@ -1,17 +1,19 @@
-package protocol.packet.special;
+package packets.special;
 
 import com.google.gson.annotations.SerializedName;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Senden / Empfangen eines Eingabefeldes (z.B. Banksystem)
+ */
 public class InputPromptPacket implements GermanMinerPacket {
-
-  private String message;
-  private String value;
 
   @SerializedName("button_submit")
   private String buttonSubmit;
   @SerializedName("button_cancel")
   private String buttonCancel;
+  private String message;
+  private String value;
   private Boolean exit;
 
   public InputPromptPacket() {
@@ -48,9 +50,5 @@ public class InputPromptPacket implements GermanMinerPacket {
 
   public String getButtonCancel() {
     return buttonCancel;
-  }
-
-  public Boolean getExit() {
-    return exit;
   }
 }

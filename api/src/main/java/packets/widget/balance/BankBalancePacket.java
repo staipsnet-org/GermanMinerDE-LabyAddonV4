@@ -1,7 +1,10 @@
-package protocol.packet.widget.balance;
+package packets.widget.balance;
 
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten vom Banksystem
+ */
 public class BankBalancePacket implements GermanMinerPacket {
 
   private Double bank;

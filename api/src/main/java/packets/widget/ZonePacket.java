@@ -1,8 +1,11 @@
-package protocol.packet.widget;
+package packets.widget;
 
 import com.google.gson.annotations.SerializedName;
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten vom Ortungszonen-System
+ */
 public class ZonePacket implements GermanMinerPacket {
 
   @SerializedName("current_zone")

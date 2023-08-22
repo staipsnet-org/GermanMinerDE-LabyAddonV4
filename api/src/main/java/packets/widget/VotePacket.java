@@ -1,7 +1,10 @@
-package protocol.packet.widget;
+package packets.widget;
 
-import protocol.packet.GermanMinerPacket;
+import packets.GermanMinerPacket;
 
+/**
+ * Packet zum Verarbeiten vom Votesystem
+ */
 public class VotePacket implements GermanMinerPacket {
 
   private String votes;
