@@ -25,12 +25,12 @@ public class InputPromptActivity extends Activity {
   private final Consumer<String> onSubmit;
   private final Consumer<Boolean> onCancel;
   private final Component title;
-  private Component submitButton;
-  private Component cancelButton;
+  private final Component submitButton;
+  private final Component cancelButton;
   private String value;
 
   public InputPromptActivity(InputPromptPacket packet, Consumer<String> onSubmit, Consumer<Boolean> onCancel) {
-    this.title = Component.text("§b" + packet.getMessage());
+    this.title = Component.text("§e" + packet.getMessage());
     this.submitButton = Component.text(packet.getButtonSubmit());
     this.cancelButton = Component.text(packet.getButtonCancel());
     this.value = (packet.getValue() == null ? "" : packet.getValue());
@@ -38,41 +38,31 @@ public class InputPromptActivity extends Activity {
     this.onCancel = onCancel;
   }
 
+  @Override
   public void initialize(Parent parent) {
     super.initialize(parent);
 
-    final DivWidget wrapper = new DivWidget();
-    wrapper.addId("wrapper");
+    DivWidget divWidget = new DivWidget();
+    DivWidget buttonDivWidget = new DivWidget();
+    VerticalListWidget<Widget> container = new VerticalListWidget<>();
+    ComponentWidget title = ComponentWidget.component(this.title);
+    TextFieldWidget textField = new TextFieldWidget();
+    HorizontalListWidget buttonContainer = new HorizontalListWidget();
+    ButtonWidget submitButton = ButtonWidget.component(this.submitButton);
+    ButtonWidget cancelButton = ButtonWidget.component(this.cancelButton);
 
-    final VerticalListWidget<Widget> container = new VerticalListWidget<>();
+    divWidget.addId("divWidget");
     container.addId("container");
-
-    final ComponentWidget title = ComponentWidget.component(this.title);
     title.addId("title");
     container.addChild(title);
-
-    final TextFieldWidget textField = new TextFieldWidget();
     textField.addId("input");
     textField.setFocused(true);
     textField.setText(this.value, true);
     textField.updateListener(text -> this.value = text);
     container.addChild(textField);
-
-    final DivWidget buttonWrapper = new DivWidget();
-    buttonWrapper.addId("buttonWrapper");
-
-    final HorizontalListWidget buttonContainer = new HorizontalListWidget();
+    buttonDivWidget.addId("buttonDivWidget");
     buttonContainer.addId("buttonContainer");
 
-    final ButtonWidget submitButton = ButtonWidget.component(this.submitButton);
-    submitButton.addId("submit");
-    submitButton.setPressable(() -> {
-      this.onSubmit.accept(textField.getText());
-      super.displayPreviousScreen();
-    });
-    buttonContainer.addEntry(submitButton);
-
-    final ButtonWidget cancelButton = ButtonWidget.component(this.cancelButton);
     cancelButton.addId("cancel");
     cancelButton.setPressable(() -> {
       this.onCancel.accept(true);
@@ -80,10 +70,17 @@ public class InputPromptActivity extends Activity {
     });
     buttonContainer.addEntry(cancelButton);
 
-    buttonWrapper.addChild(buttonContainer);
-    container.addChild(buttonWrapper);
-    wrapper.addChild(container);
-    this.document.addChild(wrapper);
+    submitButton.addId("submit");
+    submitButton.setPressable(() -> {
+      this.onSubmit.accept(textField.getText());
+      super.displayPreviousScreen();
+    });
+    buttonContainer.addEntry(submitButton);
+
+    buttonDivWidget.addChild(buttonContainer);
+    container.addChild(buttonDivWidget);
+    divWidget.addChild(container);
+    this.document.addChild(divWidget);
   }
 
   @Override

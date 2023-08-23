@@ -1,4 +1,4 @@
-.wrapper {
+.divWidget {
   left: 0;
   top: 0;
   right: 0;
@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.75);
 
   .container {
-    width: 70%;
+    width: 35%;
     height: fit-content;
     space-between-entries: 15;
 
@@ -23,21 +23,21 @@
       alignment-x: center;
     }
 
-    .buttonWrapper {
+    .buttonDivWidget {
 
       padding: 10;
 
       .buttonContainer {
-        width: 60%;
+        width: 75%;
         height: fit-content;
         alignment-x: center;
         alignment-y: center;
         layout: fill;
-        space-between-entries: 10;
+        space-between-entries: 40;
 
         .submit {
-          padding-left: 20;
-          padding-right: 20;
+          padding-left: 40;
+          padding-right: 40;
         }
 
         .cancel {

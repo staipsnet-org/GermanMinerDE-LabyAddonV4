@@ -58,7 +58,6 @@ subprojects {
     }
 }
 dependencies {
-    implementation("org.reflections:reflections:0.10.2")
 }
 
 fun configureRun(provider: net.labymod.gradle.core.minecraft.provider.VersionProvider, gameVersion: String) {
