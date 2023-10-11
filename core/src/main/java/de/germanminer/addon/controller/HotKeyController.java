@@ -17,15 +17,15 @@ public class HotKeyController {
   public HotKeyController(final GermanMinerAddon addon) {
     this.addon = addon;
 
-    register("engine", this.addon.configuration().vehicleEngineHotkey(), HotKey.ENGINE_SWITCH);
-    register("siren", this.addon.configuration().vehicleSirenHotkey(), HotKey.SIREN_SWITCH);
-    register("limiter_set", this.addon.configuration().vehicleLimiterSetHotkey(), HotKey.SPEEDLIMITER_SET);
-    register("limiter_switch", this.addon.configuration().vehicleLimiterSwitchHotkey(), HotKey.SPEEDLIMITER_SWITCH);
+    register("Engine", this.addon.configuration().vehicleConfig().vehicleEngineHotkey(), HotKey.ENGINE_SWITCH);
+    register("Siren", this.addon.configuration().vehicleConfig().vehicleSirenHotkey(), HotKey.SIREN_SWITCH);
+    register("LimiterSet", this.addon.configuration().vehicleConfig().vehicleLimiterSetHotkey(), HotKey.SPEED_LIMITER_SET);
+    register("LimiterSwitch", this.addon.configuration().vehicleConfig().vehicleLimiterSwitchHotkey(), HotKey.SPEED_LIMITER_SWITCH);
   }
 
   private void register(final String id, final ConfigProperty<Key> key, final HotKey hotKey) {
-    Laby.references().hotkeyService().register("germanminer_" + id, key, () -> Type.TOGGLE, active -> {
-      if (this.addon.enabled()) {
+    Laby.references().hotkeyService().register("gm" + id, key, () -> Type.TOGGLE, active -> {
+      if (this.addon.enabled() && this.addon.configuration().vehicleConfig().enabled().get()) {
         this.addon.sendPacket(new VehicleHotKeyPacket(hotKey));
       }
     });

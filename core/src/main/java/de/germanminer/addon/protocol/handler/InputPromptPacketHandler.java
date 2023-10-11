@@ -2,7 +2,7 @@ package de.germanminer.addon.protocol.handler;
 
 import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.activities.InputPromptActivity;
-import de.germanminer.addon.api.protocol.packet.special.InputPromptPacket;
+import de.germanminer.addon.api.protocol.packet.miscellaneous.InputPromptPacket;
 import net.labymod.api.Laby;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
 

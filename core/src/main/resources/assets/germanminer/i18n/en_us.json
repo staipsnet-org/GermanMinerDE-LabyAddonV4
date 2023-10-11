@@ -1,25 +1,81 @@
 {
   "germanminer": {
     "hudWidgetCategory": {
-      "germanminerGlobal": {
+      "gmGlobal": {
         "name": "GermanMiner",
         "description": "Shows you information about GermanMiner"
       }
     },
     "hudWidget": {
-      "germanminerBalance": {
-        "name": "Bank-System",
-        "description": "Displays your current cash and balance",
-        "cash": "Cash",
-        "bank": "Balance"
+      "gmCash": {
+        "name": "Cash",
+        "description": "Displays your current cash"
       },
-      "germanminerLevel": {
-        "name": "Player Level",
-        "description": "Displays your current player level",
-        "level": "Level",
-        "points": "Level Points"
+      "gmBank": {
+        "name": "Balance",
+        "description": "Displays your current balance"
       },
-      "germanminerVehicleDisplay": {
+      "gmCompany": {
+        "name": "Company-Balance",
+        "description": "Displays your current company balance"
+      },
+      "gmExtra": {
+        "name": "Additional-Balance",
+        "description": "Displays your current additional balances"
+      },
+      "gmLevel": {
+        "name": "Level",
+        "description": "Shows your current player level"
+      },
+      "gmLevelPoints": {
+        "name": "Level Points",
+        "description": "Shows your current level points"
+      },
+      "gmPlayTimeDaily": {
+        "name": "Daily playtime",
+        "description": "Shows your current daily playtime"
+      },
+      "gmPlayTimeWeekly": {
+        "name": "Weekly playtime",
+        "description": "Shows your current weekly playtime"
+      },
+      "gmPlayTimeTotal": {
+        "name": "Total playtime",
+        "description": "Shows your current total playtime"
+      },
+      "gmPlayTimeDuty": {
+        "name": "Duty playtime",
+        "description": "Shows your current duty playtime"
+      },
+      "gmPayday": {
+        "name": "Payday",
+        "description": "Shows your the time left to your next payday"
+      },
+      "gmCompass": {
+        "name": "Compass target",
+        "description": "Shows your current compass target",
+        "empty": "no target set"
+      },
+      "gmPowerUp": {
+        "name": "PowerUp cooldown",
+        "description": "Shows your current powerup cooldown",
+        "empty": "ready",
+        "remaining": "%s seconds left"
+      },
+      "gmVote": {
+        "name": "Votes",
+        "description": "Shows your current vote amount"
+      },
+      "gmZone": {
+        "name": "Region",
+        "description": "Shows your current region"
+      },
+      "gmCalender": {
+        "name": "Calendar",
+        "description": "Shows your current calendar entry",
+        "empty": "no entry"
+      },
+      "gmVehicle": {
         "name": "Vehicle Displays",
         "description": "Displays information about your current vehicle",
         "engine": {
@@ -36,25 +92,124 @@
       "enabled": {
         "name": "Enabled"
       },
-      "vehicleEngineHotkey": {
-        "name": "Engine (on/off)",
-        "description": "Hotkey to switch the engine on/off"
+      "vehicleConfig": {
+        "name": "Advanced vehicle settings",
+        "description": "Disable this setting to disable all vehicle settings",
+        "vehicleEngineHotkey": {
+          "name": "Engine (on/off)",
+          "description": "Hotkey to switch the engine on/off"
+        },
+        "vehicleSirenHotkey": {
+          "name": "Siren (on/off)",
+          "description": "Hotkey to switch the siren on/off"
+        },
+        "vehicleLimiterSwitchHotkey": {
+          "name": "Cruise control (on/off)",
+          "description": "Hotkey to switch the cruise control on/off"
+        },
+        "vehicleLimiterSetHotkey": {
+          "name": "Cruise control (adopt current speed)",
+          "description": "Hotkey to adopt the current speed"
+        }
       },
-      "vehicleSirenHotkey": {
-        "name": "Siren (on/off)",
-        "description": "Hotkey to switch the siren on/off"
+      "balanceConfig": {
+        "name": "Advanced banking settings",
+        "description": "Disable this setting to disable all banking settings",
+        "company": {
+          "name": "Company account"
+        },
+        "extra": {
+          "name": "Additional accounts"
+        },
+        "firstExtraAccount": {
+          "name": "1. Additional account",
+          "description": "Enter your account number for your first additional account"
+        },
+        "secondExtraAccount": {
+          "name": "2. Additional account",
+          "description": "Enter your account number for your second additional account"
+        },
+        "thirdExtraAccount": {
+          "name": "3. Additional account",
+          "description": "Enter your account number for your third additional account"
+        }
       },
-      "vehicleLimiterSwitchHotkey": {
-        "name": "Cruise control (on/off)",
-        "description": "Hotkey to switch the cruise control on/off"
+      "playTimeConfig": {
+        "name": "Advanced playtime settings",
+        "description": "Disable this setting to disable all playtime settings",
+        "daily": {
+          "name": "Daily playtime"
+        },
+        "weekly": {
+          "name": "Weekly playtime"
+        },
+        "total": {
+          "name": "Total playtime"
+        },
+        "duty": {
+          "name": "Duty playtime"
+        },
+        "payday": {
+          "name": "Next payday"
+        }
       },
-      "vehicleLimiterSetHotkey": {
-        "name": "Cruise control (adopt current speed)",
-        "description": "Hotkey to adopt the current speed"
+      "calenderConfig": {
+        "name": "Advanced calender settings",
+        "monday": {
+          "name": "Monday"
+        },
+        "tuesday": {
+          "name": "Tuesday"
+        },
+        "wednesday": {
+          "name": "Wednesday"
+        },
+        "thursday": {
+          "name": "Thursday"
+        },
+        "friday": {
+          "name": "Friday"
+        },
+        "saturday": {
+          "name": "Saturday"
+        },
+        "sunday": {
+          "name": "Sunday"
+        }
+      },
+      "miscellaneousConfig": {
+        "name": "Advanced settings",
+        "level": {
+          "name": "Level system"
+        },
+        "compass": {
+          "name": "Compass system"
+        },
+        "powerUp": {
+          "name": "PowerUp cooldown"
+        },
+        "vote": {
+          "name": "Voting system"
+        },
+        "zone": {
+          "name": "Current region"
+        }
       },
       "header": {
-        "hotkey": {
-          "name": "Vehicle-System"
+        "vehicle": {
+          "name": "Vehicle"
+        },
+        "balance": {
+          "name": "Banking"
+        },
+        "playTime": {
+          "name": "Playtime"
+        },
+        "calender": {
+          "name": "Calender"
+        },
+        "miscellaneous": {
+          "name": "Miscellaneous"
         }
       }
     }

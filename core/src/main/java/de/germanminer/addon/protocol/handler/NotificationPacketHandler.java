@@ -1,6 +1,6 @@
 package de.germanminer.addon.protocol.handler;
 
-import de.germanminer.addon.api.protocol.packet.special.NotificationPacket;
+import de.germanminer.addon.api.protocol.packet.miscellaneous.NotificationPacket;
 import java.util.UUID;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;

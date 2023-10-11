@@ -1,6 +1,6 @@
 package de.germanminer.addon.activities;
 
-import de.germanminer.addon.api.protocol.packet.special.InputPromptPacket;
+import de.germanminer.addon.api.protocol.packet.miscellaneous.InputPromptPacket;
 import java.util.function.Consumer;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.screen.Parent;

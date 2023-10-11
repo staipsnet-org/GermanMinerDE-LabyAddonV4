@@ -1,24 +1,81 @@
 {
   "germanminer": {
     "hudWidgetCategory": {
-      "germanminerGlobal": {
+      "gmGlobal": {
+        "name": "GermanMiner",
         "description": "Zeigt die Informationen über GermanMiner"
       }
     },
     "hudWidget": {
-      "germanminerBalance": {
-        "name": "Bank-System",
-        "description": "Zeigt deine aktuelles Bargeld und Kontostand an",
-        "cash": "Bargeld",
-        "bank": "Kontostand"
+      "gmCash": {
+        "name": "Bargeld",
+        "description": "Zeigt deine aktuelles Bargeld an"
       },
-      "germanminerLevel": {
-        "name": "Spielerlevel",
-        "description": "Zeigt dein aktuelles Spielerlevel an",
-        "level": "Level",
-        "points": "Levelpunkte"
+      "gmBank": {
+        "name": "Kontostand",
+        "description": "Zeigt dein aktuellen Kontostand an"
       },
-      "germanminerVehicleDisplay": {
+      "gmCompany": {
+        "name": "Firmen-Kontostand",
+        "description": "Zeigt dein aktuellen Firmen-Kontostand an"
+      },
+      "gmExtra": {
+        "name": "Zusätzlicher Kontostand",
+        "description": "Zeigt dein aktuellen zusätzlichen Kontostände an"
+      },
+      "gmLevel": {
+        "name": "Level",
+        "description": "Zeigt dein aktuelles Spielerlevel an"
+      },
+      "gmLevelPoints": {
+        "name": "Levelpunkte",
+        "description": "Zeigt deine aktuellen Levelpunkte an"
+      },
+      "gmPlayTimeDaily": {
+        "name": "Tägliche Spielzeit",
+        "description": "Zeigt deine aktuelle tägliche Spielzeit an"
+      },
+      "gmPlayTimeWeekly": {
+        "name": "Wöchenliche Spielzeit",
+        "description": "Zeigt deine aktuelle wöchentliche Spielzeit an"
+      },
+      "gmPlayTimeTotal": {
+        "name": "Gesamte Spielzeit",
+        "description": "Zeigt deine aktuelle gesamte Spielzeit an"
+      },
+      "gmPlayTimeDuty": {
+        "name": "Dienstliche Spielzeit",
+        "description": "Zeigt deine aktuelle dienstliche Spielzeit an"
+      },
+      "gmPayday": {
+        "name": "Payday",
+        "description": "Zeigt die verbleibende Zeit bis zum nächten Payday an"
+      },
+      "gmCompass": {
+        "name": "Kompassziel",
+        "description": "Zeigt dein derzeites Kompassziel an",
+        "empty": "kein Ziel festgelegt"
+      },
+      "gmPowerUp": {
+        "name": "PowerUp Cooldown",
+        "description": "Zeigt dein aktuellen PowerUp Cooldown an",
+        "empty": "bereit",
+        "remaining": "noch %s seconds"
+      },
+      "gmVote": {
+        "name": "Votes",
+        "description": "Zeigt deine aktuellen Votes an"
+      },
+      "gmZone": {
+        "name": "Ort",
+        "description": "Zeigt dein aktuellen Ort an"
+      },
+      "gmCalender": {
+        "name": "Kalender",
+        "description": "Zeigt dein aktuellen Kalender-Eintrag an",
+        "empty": "kein Eintrag"
+      },
+      "gmVehicle": {
         "name": "Fahrzeug-Anzeigen",
         "description": "Zeigt Informationen zu deinem aktuellen Fahrzeugen an",
         "engine": {
@@ -31,28 +88,128 @@
       "loading": "Lädt..."
     },
     "settings": {
+      "name": "GermanMiner",
       "enabled": {
         "name": "Aktiviert"
       },
-      "vehicleEngineHotkey": {
-        "name": "Motor (an/aus)",
-        "description": "Hotkey zum an-/ausschalten des Motors"
+      "vehicleConfig": {
+        "name": "Erweiterte Fahrzeug-Einstellungen",
+        "description": "Deaktiviere diese Einstellung, um alle Fahrzeug-Einstellungen zu deaktivieren",
+        "vehicleEngineHotkey": {
+          "name": "Motor (an/aus)",
+          "description": "Hotkey zum an-/ausschalten des Motors"
+        },
+        "vehicleSirenHotkey": {
+          "name": "Sirene (an/aus)",
+          "description": "Hotkey zum an-/ausschalten der Sirene"
+        },
+        "vehicleLimiterSwitchHotkey": {
+          "name": "Tempolimiter (an/aus)",
+          "description": "Hotkey zum an-/ausschalten des Tempomats"
+        },
+        "vehicleLimiterSetHotkey": {
+          "name": "Tempolimiter (aktuelles Tempo übernehmen)",
+          "description": "Hotkey zum übernehmen der aktuellen Geschwindigkeit"
+        }
       },
-      "vehicleSirenHotkey": {
-        "name": "Sirene (an/aus)",
-        "description": "Hotkey zum an-/ausschalten der Sirene"
+      "balanceConfig": {
+        "name": "Erweiterte Bank-Einstellungen",
+        "description": "Deaktiviere diese Einstellung, um alle Bank-Einstellungen zu deaktivieren",
+        "company": {
+          "name": "Firmenkonto"
+        },
+        "extra": {
+          "name": "Zusatzkonten"
+        },
+        "firstExtraAccount": {
+          "name": "1. Zusatzkonto",
+          "description": "Gebe deine Kontonummer für dein erstes Zusatzkonto ein"
+        },
+        "secondExtraAccount": {
+          "name": "2. Zusatzkonto",
+          "description": "Gebe deine Kontonummer für dein zweites Zusatzkonto ein"
+        },
+        "thirdExtraAccount": {
+          "name": "3. Zusatzkonto",
+          "description": "Gebe deine Kontonummer für dein drittes Zusatzkonto ein"
+        }
       },
-      "vehicleLimiterSwitchHotkey": {
-        "name": "Tempolimiter (an/aus)",
-        "description": "Hotkey zum an-/ausschalten des Tempomats"
+      "playTimeConfig": {
+        "name": "Erweiterte Spielzeit-Einstellungen",
+        "description": "Deaktiviere diese Einstellung, um alle Spielzeit-Einstellungen zu deaktivieren",
+        "daily": {
+          "name": "Tägliche Spielzeit"
+        },
+        "weekly": {
+          "name": "Wöchentliche Spielzeit"
+        },
+        "total": {
+          "name": "Gesamte Spielzeit"
+        },
+        "duty": {
+          "name": "Dienstliche Spielzeit"
+        },
+        "payday": {
+          "name": "Nächster Payday"
+        }
       },
-      "vehicleLimiterSetHotkey": {
-        "name": "Tempolimiter (aktuelles Tempo übernehmen)",
-        "description": "Hotkey zum übernehmen der aktuellen Geschwindigkeit"
+      "calenderConfig": {
+        "name": "Erweiterte Kalender-Einstellungen",
+        "monday": {
+          "name": "Montag"
+        },
+        "tuesday": {
+          "name": "Dienstag"
+        },
+        "wednesday": {
+          "name": "Mittwoch"
+        },
+        "thursday": {
+          "name": "Donnerstag"
+        },
+        "friday": {
+          "name": "Freitag"
+        },
+        "saturday": {
+          "name": "Samstag"
+        },
+        "sunday": {
+          "name": "Sonntag"
+        }
+      },
+      "miscellaneousConfig": {
+        "name": "Erweiterte Einstellungen",
+        "level": {
+          "name": "Level-System"
+        },
+        "compass": {
+          "name": "Kompass-System"
+        },
+        "powerUp": {
+          "name": "PowerUp Cooldown"
+        },
+        "vote": {
+          "name": "Voting-System"
+        },
+        "zone": {
+          "name": "Derzeitiger Ort"
+        }
       },
       "header": {
-        "hotkey": {
-          "name": "Fahrzeug-System"
+        "vehicle": {
+          "name": "Fahrzeug"
+        },
+        "balance": {
+          "name": "Banking"
+        },
+        "playTime": {
+          "name": "Spielzeit"
+        },
+        "calender": {
+          "name": "Kalender"
+        },
+        "miscellaneous": {
+          "name": "Sonstiges"
         }
       }
     }

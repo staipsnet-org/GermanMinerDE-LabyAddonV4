@@ -1,4 +1,4 @@
-package de.germanminer.addon.widgets;
+package de.germanminer.addon.widgets.vehicle;
 
 import net.labymod.api.client.gui.lss.property.annotation.AutoWidget;
 import net.labymod.api.client.gui.screen.Parent;

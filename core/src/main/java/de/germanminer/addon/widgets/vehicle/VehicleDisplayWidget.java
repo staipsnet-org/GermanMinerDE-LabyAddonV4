@@ -1,12 +1,15 @@
-package de.germanminer.addon.widgets;
+package de.germanminer.addon.widgets.vehicle;
 
 import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleDisplayPacket;
+import de.germanminer.addon.widgets.WidgetIcon;
+import de.germanminer.addon.widgets.WidgetRegistry;
 import java.time.Instant;
 import java.util.Date;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TranslatableComponent;
+import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.hudwidget.HudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.widget.WidgetHudWidget;
 import net.labymod.api.client.gui.hud.position.HudSize;
@@ -17,8 +20,10 @@ import net.labymod.api.client.render.matrix.Stack;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.gui.hud.HudWidgetDestroyedEvent;
 import net.labymod.serverapi.protocol.packet.PacketHandler;
+import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
 
-public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> implements PacketHandler<VehicleDisplayPacket> {
+public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig>
+    implements PacketHandler<VehicleDisplayPacket>, WidgetRegistry<VehicleDisplayPacket> {
 
   private static final float SPEED_NEEDLE_MAX = 225F;
   private static final float FUEL_NEEDLE_MAX = -90F;
@@ -42,7 +47,7 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
     super.bindCategory(GermanMinerAddon.getInstance().getCategory());
 
     this.addon = addon;
-    this.hudWidgetIcon = VehicleDisplayTexture.SPEED_LIMITER_ACTIVE.getIcon(true);
+    this.hudWidgetIcon = WidgetIcon.VEHICLE_DISPLAY.getIcon();
   }
 
   @Override
@@ -91,17 +96,18 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
   private void drawLine(final Stack stack, final HudSize size, final float angle,
       final Icon icon, final float zIndex) {
     stack.push();
-    stack.translate(size.getWidth() / 2F, size.getHeight() / 2F, zIndex);
+    stack.translate(size.getActualWidth() / 2F, size.getActualHeight() / 2F, zIndex);
     stack.rotate(angle, 0F, 0F, 1F);
-    stack.translate(-size.getWidth() / 2F, -size.getHeight() / 2F, zIndex);
-    icon.render(stack, 0F, 0F, size.getWidth(), size.getHeight());
+    stack.translate(-size.getActualWidth() / 2F, -size.getActualHeight() / 2F, zIndex);
+    icon.render(stack, 0F, 0F, size.getActualWidth(), size.getActualHeight());
     stack.translate(0F, 0F, 0F);
     stack.pop();
   }
 
   @Override
   public boolean isVisibleInGame() {
-    return this.addon.enabled() && !Laby.references().chatAccessor().isChatOpen() && this.show;
+    return this.addon.enabled() && !Laby.references().chatAccessor().isChatOpen() && this.show
+        && this.addon.configuration().vehicleConfig().enabled().get();
   }
 
   @Override
@@ -217,6 +223,13 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig> imple
 
   public void sendInfo() {
     this.addon.sendPacket(new VehicleDisplayPacket(this.addon.enabled() && super.isEnabled()));
+  }
+
+  @Override
+  public void register(final HudWidgetRegistry registry, final ProtocolService protocol,
+      final Class<VehicleDisplayPacket> packetClass) {
+    registry.register(this);
+    protocol.registerPacketHandler(packetClass, this);
   }
 
 }

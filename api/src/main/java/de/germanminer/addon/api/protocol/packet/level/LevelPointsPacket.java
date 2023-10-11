@@ -1,28 +1,21 @@
-package de.germanminer.addon.api.protocol.packet.widget;
+package de.germanminer.addon.api.protocol.packet.level;
 
 import com.google.gson.annotations.SerializedName;
 import de.germanminer.addon.api.protocol.packet.GermanMinerPacket;
 
-public class LevelPacket implements GermanMinerPacket {
+public class LevelPointsPacket implements GermanMinerPacket {
 
-  @SerializedName("current_level")
-  private Integer currentLevel;
   @SerializedName("level_points")
   private Integer levelPoints;
   @SerializedName("required_level_points")
   private Integer requiredLevelPoints;
 
-  public LevelPacket() {
+  public LevelPointsPacket() {
   }
 
-  public LevelPacket(final Integer currentLevel, final Integer levelPoints, final Integer requiredLevelPoints) {
-    this.currentLevel = currentLevel;
+  public LevelPointsPacket(final Integer levelPoints, final Integer requiredLevelPoints) {
     this.levelPoints = levelPoints;
     this.requiredLevelPoints = requiredLevelPoints;
-  }
-
-  public Integer getCurrentLevel() {
-    return this.currentLevel;
   }
 
   public Integer getLevelPoints() {

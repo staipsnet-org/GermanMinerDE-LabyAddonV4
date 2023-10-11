@@ -1,4 +1,4 @@
-package de.germanminer.addon.api.protocol.packet.special;
+package de.germanminer.addon.api.protocol.packet.miscellaneous;
 
 import de.germanminer.addon.api.protocol.packet.GermanMinerPacket;
 
