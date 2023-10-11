@@ -59,9 +59,6 @@ import org.jetbrains.annotations.Nullable;
 @AddonMain
 public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
-  // ToDo: every single translation
-  // ToDo: special calender/compass/powerup translation
-
   private static GermanMinerAddon instance;
   private boolean online = false;
   private HudWidgetCategory category;

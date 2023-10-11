@@ -9,7 +9,6 @@ import net.labymod.api.util.I18n;
 
 public class CompassWidget extends GermanMinerWidget<CompassPacket> {
 
-  // ToDo: compass not working that way cuz default value empty
   public CompassWidget(final GermanMinerAddon addon, final String id) {
     super(addon, id, WidgetIcon.MISCELLANEOUS_COMPASS, () -> addon.configuration().miscellaneousConfig().compass().get(),
         packet -> {
