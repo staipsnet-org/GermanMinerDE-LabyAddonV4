@@ -17,3 +17,9 @@ You can find the offical addon [here](https://github.com/staipsnet-org/GermanMin
 4. Now start LabyMod 4 and you should now have the addon installed. 
 
 (Important: You can not have the offical addon installed at the same time so make sure to uninstall it first)
+
+#### Issues
+
+If you have any issues/feature requests
+- you can open a issue [here](https://github.com/Funboyy/germanminer/issues)
+- wrtie me a message on Discord ([funboyy](https://discord.com/users/288772430221148162))
