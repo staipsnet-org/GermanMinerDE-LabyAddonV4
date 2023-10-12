@@ -19,8 +19,8 @@ public class HotKeyController {
 
     register("Engine", this.addon.configuration().vehicleConfig().vehicleEngineHotkey(), HotKey.ENGINE_SWITCH);
     register("Siren", this.addon.configuration().vehicleConfig().vehicleSirenHotkey(), HotKey.SIREN_SWITCH);
-    register("LimiterSet", this.addon.configuration().vehicleConfig().vehicleLimiterSetHotkey(), HotKey.SPEED_LIMITER_SET);
-    register("LimiterSwitch", this.addon.configuration().vehicleConfig().vehicleLimiterSwitchHotkey(), HotKey.SPEED_LIMITER_SWITCH);
+    register("LimiterSet", this.addon.configuration().vehicleConfig().vehicleLimiterSetHotkey(), HotKey.SPEEDLIMITER_SET);
+    register("LimiterSwitch", this.addon.configuration().vehicleConfig().vehicleLimiterSwitchHotkey(), HotKey.SPEEDLIMITER_SWITCH);
   }
 
   private void register(final String id, final ConfigProperty<Key> key, final HotKey hotKey) {
