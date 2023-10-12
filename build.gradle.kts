@@ -15,7 +15,7 @@ labyMod {
         namespace = "germanminer"
         displayName = "GermanMiner"
         author = "Funboyy, JensausNGL"
-        description = "Official addon to improve various functions on the real-life server GermanMiner"
+        description = "Unofficial addon to improve various functions on the real-life server GermanMiner"
         minecraftVersion = "1.12.2"
         version = System.getenv().getOrDefault("VERSION", "0.0.1")
     }
