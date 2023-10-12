@@ -15,7 +15,7 @@ labyMod {
         namespace = "germanminer"
         displayName = "GermanMiner"
         author = "Funboyy, JensausNGL"
-        description = "Addon zur Verbesserung von diversen Spielbereichen auf dem Real-Life-Server GermanMiner"
+        description = "Official addon to improve various functions on the real-life server GermanMiner"
         minecraftVersion = "1.12.2"
         version = System.getenv().getOrDefault("VERSION", "0.0.1")
     }
@@ -30,7 +30,8 @@ labyMod {
                 "1.19.2",
                 "1.19.3",
                 "1.19.4",
-                "1.20.1"
+                "1.20.1",
+                "1.20.2"
         ) { version, provider ->
             configureRun(provider, version)
         }
