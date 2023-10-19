@@ -6,6 +6,8 @@ import de.germanminer.addon.widgets.WidgetIcon;
 import de.germanminer.addon.widgets.WidgetRegistry;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
@@ -22,11 +24,7 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
 
   private final GermanMinerAddon addon;
   private final Icon hudWidgetIcon;
-  private LocalDateTime delay;
-  private int seconds = 0;
-
-  private TextLine coolDown;
-  private String coolDownValue;
+  private final List<PowerUpDelay> delays;
 
   public PowerUpWidget(final GermanMinerAddon addon, final String id) {
     super(id);
@@ -34,16 +32,14 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
 
     this.addon = addon;
     this.hudWidgetIcon = WidgetIcon.MISCELLANEOUS_POWER_UP.getIcon();
+    this.delays = new ArrayList<>();
   }
 
   @Override
   public void load(final TextHudWidgetConfig config) {
     super.load(config);
 
-    this.coolDown = super.createLine(
-      Component.translatable(String.format("germanminer.hudWidget.%s.name", super.getId())),
-      this.coolDownValue == null ? Component.translatable(String.format("germanminer.hudWidget.%s.empty", super.getId()))
-        : Component.text(this.coolDownValue));
+    this.delays.add(new PowerUpDelay(this, null));
 
     super.setIcon(this.hudWidgetIcon);
   }
@@ -56,7 +52,12 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
   @Override
   public void handle(final PowerUpPacket packet) {
     if (packet.getCoolDown() != null) {
-      this.delay = LocalDateTime.parse(packet.getCoolDown());
+      if (this.delays.get(0).isActive()) {
+        this.delays.add(new PowerUpDelay(this, packet.getCoolDown()));
+        return;
+      }
+
+      this.delays.get(0).setDelay(packet.getCoolDown());
     }
   }
 
@@ -64,27 +65,7 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
   public void onTick(final boolean isEditorContext) {
     super.onTick(isEditorContext);
 
-    if (this.delay == null) {
-      return;
-    }
-
-    final int remainingSeconds = Math.toIntExact(Duration.between(LocalDateTime.now(), this.delay).toSeconds() - 1L);
-
-    if (this.seconds == remainingSeconds) {
-      return;
-    }
-
-    if (remainingSeconds < 1) {
-      this.coolDownValue = I18n.translate(String.format("germanminer.hudWidget.%s.empty", super.getId()));
-      this.coolDown.updateAndFlush(this.coolDownValue);
-      this.seconds = 0;
-      return;
-    }
-
-    this.coolDownValue = I18n.translate(String.format("germanminer.hudWidget.%s.remaining",
-        super.getId()), remainingSeconds);
-    this.coolDown.updateAndFlush(this.coolDownValue);
-    this.seconds = remainingSeconds;
+    this.delays.forEach(PowerUpDelay::onTick);
   }
 
   @Override
@@ -92,6 +73,67 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
       final Class<PowerUpPacket> packetClass) {
     registry.register(this);
     protocol.registerPacketHandler(packetClass, this);
+  }
+
+  static class PowerUpDelay {
+
+    private final PowerUpWidget widget;
+    private LocalDateTime delay;
+    private int seconds = 0;
+    private final TextLine coolDown;
+    private String coolDownValue;
+
+    public PowerUpDelay(final PowerUpWidget widget, final String coolDown) {
+      this.widget = widget;
+      this.delay = coolDown == null ? null : LocalDateTime.parse(coolDown);
+      this.coolDown = this.widget.createLine(
+          Component.translatable(String.format("germanminer.hudWidget.%s.name", this.widget.getId())),
+          this.coolDownValue == null ? Component.translatable(String.format("germanminer.hudWidget.%s.empty", this.widget.getId()))
+              : Component.text(this.coolDownValue));
+    }
+
+    public void onTick() {
+      if (this.delay == null) {
+        return;
+      }
+
+      final int remainingSeconds = Math.toIntExact(Duration.between(LocalDateTime.now(), this.delay).toSeconds() - 1L);
+
+      if (this.seconds == remainingSeconds) {
+        return;
+      }
+
+      if (remainingSeconds < 1) {
+        this.coolDownValue = I18n.translate(String.format("germanminer.hudWidget.%s.empty", this.widget.getId()));
+        this.coolDown.updateAndFlush(this.coolDownValue);
+        this.seconds = 0;
+
+        if (this.widget.delays.size() != 1) {
+          this.widget.delays.remove(this);
+          remove();
+        }
+
+        return;
+      }
+
+      this.coolDownValue = I18n.translate(String.format("germanminer.hudWidget.%s.remaining",
+          this.widget.getId()), remainingSeconds);
+      this.coolDown.updateAndFlush(this.coolDownValue);
+      this.seconds = remainingSeconds;
+    }
+
+    public void remove() {
+      this.widget.lines.remove(this.coolDown);
+    }
+
+    public boolean isActive() {
+      return this.seconds > 0;
+    }
+
+    public void setDelay(final String coolDown) {
+      this.delay = coolDown == null ? null : LocalDateTime.parse(coolDown);
+    }
+
   }
 
 }
