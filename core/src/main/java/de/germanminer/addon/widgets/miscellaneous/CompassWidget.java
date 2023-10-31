@@ -17,7 +17,7 @@ public class CompassWidget extends GermanMinerWidget<CompassPacket> {
           }
 
           if (packet.getTarget().equals("notset") || packet.getDistance().equals("notset")) {
-            return I18n.translate(String.format("germanminer.hudWidget.%s.notset", id));
+            return I18n.translate(String.format("germanminer.hudWidget.%s.empty", id));
           }
 
           return packet.getTarget() + ", " + packet.getDistance() + " Meter";
