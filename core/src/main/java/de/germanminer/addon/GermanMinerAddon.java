@@ -138,8 +138,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   }
 
   public void sendPacket(final GermanMinerPacket packet) {
-    ProtocolApiBridge.getProtocolApi().getProtocolService().getProtocol(
-        PayloadChannelIdentifier.create("labymod", "germanminer")).sendPacket(packet);
+    this.protocol.sendPacket(packet);
   }
 
   public boolean enabled() {
