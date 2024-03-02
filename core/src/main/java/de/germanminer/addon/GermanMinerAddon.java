@@ -54,7 +54,6 @@ import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.serverapi.protocol.api.ProtocolApiBridge;
 import net.labymod.serverapi.protocol.packet.protocol.Protocol;
 import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
-import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifier;
 import org.jetbrains.annotations.Nullable;
 
 @AddonMain
