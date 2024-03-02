@@ -28,7 +28,8 @@ import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifie
 public class GermanMinerProtocol extends Protocol {
 
   public GermanMinerProtocol() {
-    super(PayloadChannelIdentifier.create("labymod", "germanminer"));
+    super(PayloadChannelIdentifier.create("labymod", "germanminer"),
+        PayloadChannelIdentifier.create("labymod3", "main"));
 
     // 0-9: Info Packets
     super.registerPacket(0, new AddonInfoPacket());

@@ -52,6 +52,7 @@ import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
 import net.labymod.serverapi.protocol.api.ProtocolApiBridge;
+import net.labymod.serverapi.protocol.packet.protocol.Protocol;
 import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
 import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifier;
 import org.jetbrains.annotations.Nullable;
@@ -61,6 +62,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
   private static GermanMinerAddon instance;
   private boolean online = false;
+  private Protocol protocol;
   private HudWidgetCategory category;
   private VehicleDisplayWidget vehicleWidget;
 
@@ -83,10 +85,11 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
     this.logger().info("[GermanMiner] Registering Protocol...");
 
-    final ProtocolService protocol = ProtocolApiBridge.getProtocolApi().getProtocolService();
-    protocol.registerCustomProtocol(new GermanMinerProtocol());
+    this.protocol = new GermanMinerProtocol();
+    final ProtocolService protocolService = ProtocolApiBridge.getProtocolApi().getProtocolService();
+    protocolService.registerCustomProtocol(this.protocol);
 
-    Arrays.stream(TranslationPacket.values()).forEach(translation -> translation.register(protocol));
+    Arrays.stream(TranslationPacket.values()).forEach(translation -> translation.register(protocolService));
 
     this.logger().info("[GermanMiner] Registering Widgets...");
 
@@ -94,35 +97,35 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     this.category = new HudWidgetCategory(this, "gmGlobal");
     registry.categoryRegistry().register(this.category);
 
-    new CashBalanceWidget(this, "gmCash").register(registry, protocol, CashBalancePacket.class);
-    new BankBalanceWidget(this, "gmBank").register(registry, protocol, BankBalancePacket.class);
-    new CompanyBalanceWidget(this, "gmCompany").register(registry, protocol, CompanyBalancePacket.class);
-    new ExtraBalanceWidget(this, "gmExtra").register(registry, protocol, ExtraBalancePacket.class);
+    new CashBalanceWidget(this, "gmCash").register(registry, protocolService, CashBalancePacket.class);
+    new BankBalanceWidget(this, "gmBank").register(registry, protocolService, BankBalancePacket.class);
+    new CompanyBalanceWidget(this, "gmCompany").register(registry, protocolService, CompanyBalancePacket.class);
+    new ExtraBalanceWidget(this, "gmExtra").register(registry, protocolService, ExtraBalancePacket.class);
 
-    new LevelWidget(this, "gmLevel").register(registry, protocol, LevelPacket.class);
-    new LevelPointsWidget(this, "gmLevelPoints").register(registry, protocol, LevelPointsPacket.class);
+    new LevelWidget(this, "gmLevel").register(registry, protocolService, LevelPacket.class);
+    new LevelPointsWidget(this, "gmLevelPoints").register(registry, protocolService, LevelPointsPacket.class);
 
-    new DailyPlaytimeWidget(this, "gmPlayTimeDaily").register(registry, protocol, DailyPlaytimePacket.class);
-    new WeeklyPlaytimeWidget(this, "gmPlayTimeWeekly").register(registry, protocol, WeeklyPlaytimePacket.class);
-    new TotalPlaytimeWidget(this, "gmPlayTimeTotal").register(registry, protocol, TotalPlaytimePacket.class);
-    new DutyPlaytimeWidget(this, "gmPlayTimeDuty").register(registry, protocol, DutyPlaytimePacket.class);
-    new PaydayWidget(this, "gmPayday").register(registry, protocol, PaydayPacket.class);
+    new DailyPlaytimeWidget(this, "gmPlayTimeDaily").register(registry, protocolService, DailyPlaytimePacket.class);
+    new WeeklyPlaytimeWidget(this, "gmPlayTimeWeekly").register(registry, protocolService, WeeklyPlaytimePacket.class);
+    new TotalPlaytimeWidget(this, "gmPlayTimeTotal").register(registry, protocolService, TotalPlaytimePacket.class);
+    new DutyPlaytimeWidget(this, "gmPlayTimeDuty").register(registry, protocolService, DutyPlaytimePacket.class);
+    new PaydayWidget(this, "gmPayday").register(registry, protocolService, PaydayPacket.class);
 
-    new CompassWidget(this, "gmCompass").register(registry, protocol, CompassPacket.class);
-    new PowerUpWidget(this, "gmPowerUp").register(registry, protocol, PowerUpPacket.class);
-    new VoteWidget(this, "gmVote").register(registry, protocol, VotePacket.class);
-    new ZoneWidget(this, "gmZone").register(registry, protocol, ZonePacket.class);
+    new CompassWidget(this, "gmCompass").register(registry, protocolService, CompassPacket.class);
+    new PowerUpWidget(this, "gmPowerUp").register(registry, protocolService, PowerUpPacket.class);
+    new VoteWidget(this, "gmVote").register(registry, protocolService, VotePacket.class);
+    new ZoneWidget(this, "gmZone").register(registry, protocolService, ZonePacket.class);
 
     registry.register(new CalenderWidget(this, "gmCalender"));
 
     this.vehicleWidget = new VehicleDisplayWidget(this, "gmVehicle");
-    this.vehicleWidget.register(registry, protocol, VehicleDisplayPacket.class);
+    this.vehicleWidget.register(registry, protocolService, VehicleDisplayPacket.class);
 
     this.logger().info("[GermanMiner] Registering Features...");
 
-    protocol.registerPacketHandler(NotificationPacket.class, new NotificationPacketHandler());
-    protocol.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
-    protocol.registerPacketHandler(InputPromptPacket.class, new InputPromptPacketHandler());
+    protocolService.registerPacketHandler(NotificationPacket.class, new NotificationPacketHandler());
+    protocolService.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
+    protocolService.registerPacketHandler(InputPromptPacket.class, new InputPromptPacketHandler());
 
     new HotKeyController(this);
 
@@ -145,6 +148,10 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
   public void setOnline(final boolean online) {
     this.online = online;
+  }
+
+  public Protocol getProtocol() {
+    return this.protocol;
   }
 
   public HudWidgetCategory getCategory() {

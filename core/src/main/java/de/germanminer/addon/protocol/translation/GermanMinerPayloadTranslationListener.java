@@ -3,11 +3,11 @@ package de.germanminer.addon.protocol.translation;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.api.protocol.packet.GermanMinerPacket;
 import net.labymod.serverapi.protocol.packet.Packet;
 import net.labymod.serverapi.protocol.payload.exception.PayloadException;
 import net.labymod.serverapi.protocol.payload.exception.PayloadReaderException;
-import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifier;
 import net.labymod.serverapi.protocol.payload.io.PayloadReader;
 import net.labymod.serverapi.protocol.payload.io.PayloadWriter;
 import net.labymod.serverapi.protocol.payload.translation.AbstractPayloadTranslationListener;
@@ -22,10 +22,7 @@ public class GermanMinerPayloadTranslationListener extends AbstractPayloadTransl
 
   public GermanMinerPayloadTranslationListener(final Class<? extends GermanMinerPacket> clazz,
       final String oldMessageKey, final TranslationSide side) {
-    super(
-        PayloadChannelIdentifier.create("labymod3", "main"),
-        PayloadChannelIdentifier.create("labymod", "germanminer")
-    );
+    super(GermanMinerAddon.getInstance().getProtocol());
     this.clazz = clazz;
     this.oldMessageKey = oldMessageKey;
     this.side = side;
