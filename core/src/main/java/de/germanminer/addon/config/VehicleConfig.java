@@ -5,13 +5,13 @@ import net.labymod.api.client.gui.screen.key.Key;
 import net.labymod.api.client.gui.screen.widget.widgets.input.KeybindWidget.KeyBindSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.configuration.loader.Config;
-import net.labymod.api.configuration.loader.annotation.ParentSwitch;
+import net.labymod.api.configuration.loader.annotation.ShowSettingInParent;
 import net.labymod.api.configuration.loader.property.ConfigProperty;
 
 public class VehicleConfig extends Config {
 
-  @ParentSwitch
   @SwitchSetting
+  @ShowSettingInParent
   private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true).addChangeListener(
       (type, oldValue, newValue) -> GermanMinerAddon.getInstance().getVehicleWidget().sendInfo());
 
