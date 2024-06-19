@@ -6,12 +6,13 @@ import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.notification.Notification;
-import net.labymod.serverapi.protocol.packet.PacketHandler;
+import net.labymod.serverapi.api.packet.PacketHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class NotificationPacketHandler implements PacketHandler<NotificationPacket> {
 
   @Override
-  public void handle(final NotificationPacket packet) {
+  public void handle(@NotNull final UUID sender, @NotNull final NotificationPacket packet) {
     if (packet.getTitle() == null || packet.getMessage() == null) {
       return;
     }

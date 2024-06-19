@@ -22,49 +22,49 @@ import de.germanminer.addon.api.protocol.packet.playtime.WeeklyPlaytimePacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleDisplayPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleHotKeyPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehiclePositionPacket;
-import net.labymod.serverapi.protocol.packet.protocol.Protocol;
-import net.labymod.serverapi.protocol.payload.identifier.PayloadChannelIdentifier;
+import net.labymod.serverapi.api.AbstractProtocolService;
+import net.labymod.serverapi.api.Protocol;
+import net.labymod.serverapi.api.packet.Direction;
+import net.labymod.serverapi.api.payload.PayloadChannelIdentifier;
 
 public class GermanMinerProtocol extends Protocol {
 
-  public GermanMinerProtocol() {
-    super(PayloadChannelIdentifier.create("labymod", "germanminer"),
-        PayloadChannelIdentifier.create("labymod3", "main"));
+  public GermanMinerProtocol(final AbstractProtocolService service) {
+    super(service, PayloadChannelIdentifier.create("labymod", "germanminer"));
 
     // 0-9: Info Packets
-    super.registerPacket(0, new AddonInfoPacket());
-    super.registerPacket(1, new VersionInfoPacket());
+    super.registerPacket(0, AddonInfoPacket.class, Direction.SERVERBOUND);
+    super.registerPacket(1, VersionInfoPacket.class, Direction.SERVERBOUND);
 
     // 10-19: Balance Packets
-    super.registerPacket(10, new CashBalancePacket());
-    super.registerPacket(11, new BankBalancePacket());
-    super.registerPacket(12, new CompanyBalancePacket());
-    super.registerPacket(13, new ExtraBalancePacket());
+    super.registerPacket(10, CashBalancePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(11, BankBalancePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(12, CompanyBalancePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(13, ExtraBalancePacket.class, Direction.CLIENTBOUND);
 
     // 20-29: PlayerLevel Packets
-    super.registerPacket(20, new LevelPacket());
-    super.registerPacket(21, new LevelPointsPacket());
+    super.registerPacket(20, LevelPacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(21, LevelPointsPacket.class, Direction.CLIENTBOUND);
 
     // 30-39: PlayTime Packets
-    super.registerPacket(30, new DailyPlaytimePacket());
-    super.registerPacket(31, new WeeklyPlaytimePacket());
-    super.registerPacket(32, new TotalPlaytimePacket());
-    super.registerPacket(33, new DutyPlaytimePacket());
-    super.registerPacket(34, new PaydayPacket());
+    super.registerPacket(30, DailyPlaytimePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(31, WeeklyPlaytimePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(32, TotalPlaytimePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(33, DutyPlaytimePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(34, PaydayPacket.class, Direction.CLIENTBOUND);
 
     // 40-49 Vehicle Packets
-    super.registerPacket(40, new VehicleDisplayPacket());
-    super.registerPacket(41, new VehiclePositionPacket());
-    super.registerPacket(42, new VehicleHotKeyPacket());
+    super.registerPacket(40, VehicleDisplayPacket.class, Direction.BOTH);
+    super.registerPacket(41, VehiclePositionPacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(42, VehicleHotKeyPacket.class, Direction.SERVERBOUND);
 
     // 50-infinity: Miscellaneous Packets
-    super.registerPacket(50, new NotificationPacket());
-    super.registerPacket(51, new InputPromptPacket());
-    super.registerPacket(52, new CompassPacket());
-    super.registerPacket(53, new PowerUpPacket());
-    super.registerPacket(54, new VotePacket());
-    super.registerPacket(55, new ZonePacket());
-
+    super.registerPacket(50, NotificationPacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(51, InputPromptPacket.class, Direction.BOTH);
+    super.registerPacket(52, CompassPacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(53, PowerUpPacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(54, VotePacket.class, Direction.CLIENTBOUND);
+    super.registerPacket(55, ZonePacket.class, Direction.CLIENTBOUND);
   }
 
 }

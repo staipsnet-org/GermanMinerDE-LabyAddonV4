@@ -6,6 +6,7 @@ import de.germanminer.addon.widgets.WidgetIcon;
 import de.germanminer.addon.widgets.WidgetRegistry;
 import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
 import net.labymod.api.Laby;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.component.TranslatableComponent;
@@ -19,8 +20,9 @@ import net.labymod.api.client.gui.screen.widget.widgets.hud.HudWidgetWidget;
 import net.labymod.api.client.render.matrix.Stack;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.gui.hud.HudWidgetDestroyedEvent;
-import net.labymod.serverapi.protocol.packet.PacketHandler;
-import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
+import net.labymod.serverapi.api.Protocol;
+import net.labymod.serverapi.api.packet.PacketHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig>
     implements PacketHandler<VehicleDisplayPacket>, WidgetRegistry<VehicleDisplayPacket> {
@@ -111,7 +113,7 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig>
   }
 
   @Override
-  public void handle(final VehicleDisplayPacket packet) {
+  public void handle(@NotNull final UUID sender, @NotNull final VehicleDisplayPacket packet) {
     if (packet.getShow() != null) {
       this.show = packet.getShow();
 
@@ -226,10 +228,10 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig>
   }
 
   @Override
-  public void register(final HudWidgetRegistry registry, final ProtocolService protocol,
+  public void register(final HudWidgetRegistry registry, final Protocol protocol,
       final Class<VehicleDisplayPacket> packetClass) {
     registry.register(this);
-    protocol.registerPacketHandler(packetClass, this);
+    protocol.registerHandler(packetClass, this);
   }
 
 }

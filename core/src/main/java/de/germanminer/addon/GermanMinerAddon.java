@@ -47,13 +47,16 @@ import de.germanminer.addon.widgets.playtime.TotalPlaytimeWidget;
 import de.germanminer.addon.widgets.playtime.WeeklyPlaytimeWidget;
 import de.germanminer.addon.widgets.vehicle.VehicleDisplayWidget;
 import java.util.Arrays;
+import net.labymod.api.Laby;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.binding.category.HudWidgetCategory;
 import net.labymod.api.models.addon.annotation.AddonMain;
-import net.labymod.serverapi.protocol.api.ProtocolApiBridge;
-import net.labymod.serverapi.protocol.packet.protocol.Protocol;
-import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
+import net.labymod.api.serverapi.LabyModProtocolService;
+import net.labymod.api.serverapi.TranslationProtocol;
+import net.labymod.serverapi.api.AbstractProtocolService;
+import net.labymod.serverapi.api.Protocol;
+import net.labymod.serverapi.api.payload.PayloadChannelIdentifier;
 import org.jetbrains.annotations.Nullable;
 
 @AddonMain
@@ -61,7 +64,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
   private static GermanMinerAddon instance;
   private boolean online = false;
-  private Protocol protocol;
+  private GermanMinerProtocol protocol;
   private HudWidgetCategory category;
   private VehicleDisplayWidget vehicleWidget;
 
@@ -84,11 +87,19 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
 
     this.logger().info("[GermanMiner] Registering Protocol...");
 
-    this.protocol = new GermanMinerProtocol();
-    final ProtocolService protocolService = ProtocolApiBridge.getProtocolApi().getProtocolService();
-    protocolService.registerCustomProtocol(this.protocol);
+    final LabyModProtocolService protocolService = Laby.references().labyModProtocolService();
 
-    Arrays.stream(TranslationPacket.values()).forEach(translation -> translation.register(protocolService));
+    this.protocol = new GermanMinerProtocol(protocolService);
+
+    final TranslationProtocol translationProtocol = new TranslationProtocol(
+        PayloadChannelIdentifier.create("labymod3", "main"),
+        this.protocol
+    );
+
+    protocolService.registry().registerProtocol(this.protocol);
+    protocolService.translationRegistry().register(translationProtocol);
+
+    Arrays.stream(TranslationPacket.values()).forEach(translation -> translation.register(translationProtocol));
 
     this.logger().info("[GermanMiner] Registering Widgets...");
 
@@ -96,35 +107,35 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
     this.category = new HudWidgetCategory(this, "gmGlobal");
     registry.categoryRegistry().register(this.category);
 
-    new CashBalanceWidget(this, "gmCash").register(registry, protocolService, CashBalancePacket.class);
-    new BankBalanceWidget(this, "gmBank").register(registry, protocolService, BankBalancePacket.class);
-    new CompanyBalanceWidget(this, "gmCompany").register(registry, protocolService, CompanyBalancePacket.class);
-    new ExtraBalanceWidget(this, "gmExtra").register(registry, protocolService, ExtraBalancePacket.class);
+    new CashBalanceWidget(this, "gmCash").register(registry, this.protocol, CashBalancePacket.class);
+    new BankBalanceWidget(this, "gmBank").register(registry, this.protocol, BankBalancePacket.class);
+    new CompanyBalanceWidget(this, "gmCompany").register(registry, this.protocol, CompanyBalancePacket.class);
+    new ExtraBalanceWidget(this, "gmExtra").register(registry, this.protocol, ExtraBalancePacket.class);
 
-    new LevelWidget(this, "gmLevel").register(registry, protocolService, LevelPacket.class);
-    new LevelPointsWidget(this, "gmLevelPoints").register(registry, protocolService, LevelPointsPacket.class);
+    new LevelWidget(this, "gmLevel").register(registry, this.protocol, LevelPacket.class);
+    new LevelPointsWidget(this, "gmLevelPoints").register(registry, this.protocol, LevelPointsPacket.class);
 
-    new DailyPlaytimeWidget(this, "gmPlayTimeDaily").register(registry, protocolService, DailyPlaytimePacket.class);
-    new WeeklyPlaytimeWidget(this, "gmPlayTimeWeekly").register(registry, protocolService, WeeklyPlaytimePacket.class);
-    new TotalPlaytimeWidget(this, "gmPlayTimeTotal").register(registry, protocolService, TotalPlaytimePacket.class);
-    new DutyPlaytimeWidget(this, "gmPlayTimeDuty").register(registry, protocolService, DutyPlaytimePacket.class);
-    new PaydayWidget(this, "gmPayday").register(registry, protocolService, PaydayPacket.class);
+    new DailyPlaytimeWidget(this, "gmPlayTimeDaily").register(registry, this.protocol, DailyPlaytimePacket.class);
+    new WeeklyPlaytimeWidget(this, "gmPlayTimeWeekly").register(registry, this.protocol, WeeklyPlaytimePacket.class);
+    new TotalPlaytimeWidget(this, "gmPlayTimeTotal").register(registry, this.protocol, TotalPlaytimePacket.class);
+    new DutyPlaytimeWidget(this, "gmPlayTimeDuty").register(registry, this.protocol, DutyPlaytimePacket.class);
+    new PaydayWidget(this, "gmPayday").register(registry, this.protocol, PaydayPacket.class);
 
-    new CompassWidget(this, "gmCompass").register(registry, protocolService, CompassPacket.class);
-    new PowerUpWidget(this, "gmPowerUp").register(registry, protocolService, PowerUpPacket.class);
-    new VoteWidget(this, "gmVote").register(registry, protocolService, VotePacket.class);
-    new ZoneWidget(this, "gmZone").register(registry, protocolService, ZonePacket.class);
+    new CompassWidget(this, "gmCompass").register(registry, this.protocol, CompassPacket.class);
+    new PowerUpWidget(this, "gmPowerUp").register(registry, this.protocol, PowerUpPacket.class);
+    new VoteWidget(this, "gmVote").register(registry, this.protocol, VotePacket.class);
+    new ZoneWidget(this, "gmZone").register(registry, this.protocol, ZonePacket.class);
 
     registry.register(new CalenderWidget(this, "gmCalender"));
 
     this.vehicleWidget = new VehicleDisplayWidget(this, "gmVehicle");
-    this.vehicleWidget.register(registry, protocolService, VehicleDisplayPacket.class);
+    this.vehicleWidget.register(registry, this.protocol, VehicleDisplayPacket.class);
 
     this.logger().info("[GermanMiner] Registering Features...");
 
-    protocolService.registerPacketHandler(NotificationPacket.class, new NotificationPacketHandler());
-    protocolService.registerPacketHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
-    protocolService.registerPacketHandler(InputPromptPacket.class, new InputPromptPacketHandler());
+    this.protocol.registerHandler(NotificationPacket.class, new NotificationPacketHandler());
+    this.protocol.registerHandler(VehiclePositionPacket.class, new VehiclePositionPacketHandler());
+    this.protocol.registerHandler(InputPromptPacket.class, new InputPromptPacketHandler());
 
     new HotKeyController(this);
 
@@ -137,7 +148,7 @@ public class GermanMinerAddon extends LabyAddon<GermanMinerConfig> {
   }
 
   public void sendPacket(final GermanMinerPacket packet) {
-    this.protocol.sendPacket(packet);
+    this.protocol.sendPacket(AbstractProtocolService.DUMMY_UUID, packet);
   }
 
   public boolean enabled() {

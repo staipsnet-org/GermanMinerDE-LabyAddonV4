@@ -23,51 +23,52 @@ import de.germanminer.addon.api.protocol.packet.playtime.WeeklyPlaytimePacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleDisplayPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehicleHotKeyPacket;
 import de.germanminer.addon.api.protocol.packet.vehicle.VehiclePositionPacket;
-import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
+import net.labymod.api.serverapi.TranslationProtocol;
+import net.labymod.serverapi.api.packet.Direction;
 
 public enum TranslationPacket {
 
-  INFO_ADDON(AddonInfoPacket.class, "gmde-addon-info", TranslationSide.OUTGOING),
-  INFO_ADDON_SERVER(VersionInfoPacket.class, "INFO", TranslationSide.OUTGOING),
+  INFO_ADDON(AddonInfoPacket.class, "gmde-addon-info", Direction.SERVERBOUND),
+  INFO_ADDON_SERVER(VersionInfoPacket.class, "INFO", Direction.SERVERBOUND),
 
-  BALANCE_CASH(CashBalancePacket.class, "gmde-balance-cash", TranslationSide.INCOMING),
-  BALANCE_BANK(BankBalancePacket.class, "gmde-balance-bank", TranslationSide.INCOMING),
-  BALANCE_BANK_COMPANY(CompanyBalancePacket.class, "gmde-balance-company", TranslationSide.INCOMING),
-  BALANCE_BANK_EXTRA(ExtraBalancePacket.class, "gmde-balance-extra", TranslationSide.INCOMING),
+  BALANCE_CASH(CashBalancePacket.class, "gmde-balance-cash", Direction.CLIENTBOUND),
+  BALANCE_BANK(BankBalancePacket.class, "gmde-balance-bank", Direction.CLIENTBOUND),
+  BALANCE_BANK_COMPANY(CompanyBalancePacket.class, "gmde-balance-company", Direction.CLIENTBOUND),
+  BALANCE_BANK_EXTRA(ExtraBalancePacket.class, "gmde-balance-extra", Direction.CLIENTBOUND),
 
-  PLAYER_LEVEL(LevelPacket.class, "gmde-level", TranslationSide.INCOMING),
-  PLAYER_LEVEL_POINTS(LevelPointsPacket.class, "gmde-levelpoints", TranslationSide.INCOMING),
+  PLAYER_LEVEL(LevelPacket.class, "gmde-level", Direction.CLIENTBOUND),
+  PLAYER_LEVEL_POINTS(LevelPointsPacket.class, "gmde-levelpoints", Direction.CLIENTBOUND),
 
-  PLAYTIME_DAILY(DailyPlaytimePacket.class, "gmde-ontime-daily", TranslationSide.INCOMING),
-  PLAYTIME_WEEKLY(WeeklyPlaytimePacket.class, "gmde-ontime-weekly", TranslationSide.INCOMING),
-  PLAYTIME_TOTAL(TotalPlaytimePacket.class, "gmde-ontime-total", TranslationSide.INCOMING),
-  PLAYTIME_DUTY(DutyPlaytimePacket.class, "gmde-ontime-duty", TranslationSide.INCOMING),
-  PLAYTIME_PAYDAY(PaydayPacket.class, "gmde-ontime-payday", TranslationSide.INCOMING),
+  PLAYTIME_DAILY(DailyPlaytimePacket.class, "gmde-ontime-daily", Direction.CLIENTBOUND),
+  PLAYTIME_WEEKLY(WeeklyPlaytimePacket.class, "gmde-ontime-weekly", Direction.CLIENTBOUND),
+  PLAYTIME_TOTAL(TotalPlaytimePacket.class, "gmde-ontime-total", Direction.CLIENTBOUND),
+  PLAYTIME_DUTY(DutyPlaytimePacket.class, "gmde-ontime-duty", Direction.CLIENTBOUND),
+  PLAYTIME_PAYDAY(PaydayPacket.class, "gmde-ontime-payday", Direction.CLIENTBOUND),
 
-  VEHICLE_DISPLAY(VehicleDisplayPacket.class, "gmde-vehicle-display", TranslationSide.BOTH),
-  VEHICLE_POSITION(VehiclePositionPacket.class, "gmde-vehicle-position", TranslationSide.INCOMING),
-  VEHICLE_HOTKEY(VehicleHotKeyPacket.class, "gmde-vehicle-hotkey", TranslationSide.OUTGOING),
+  VEHICLE_DISPLAY(VehicleDisplayPacket.class, "gmde-vehicle-display", Direction.BOTH),
+  VEHICLE_POSITION(VehiclePositionPacket.class, "gmde-vehicle-position", Direction.CLIENTBOUND),
+  VEHICLE_HOTKEY(VehicleHotKeyPacket.class, "gmde-vehicle-hotkey", Direction.SERVERBOUND),
 
-  MISCELLANEOUS_COMPASS(CompassPacket.class, "gmde-compass", TranslationSide.INCOMING),
-  MISCELLANEOUS_POWER_UP(PowerUpPacket.class, "gmde-powerup", TranslationSide.INCOMING),
-  MISCELLANEOUS_ZONE(ZonePacket.class, "gmde-zone", TranslationSide.INCOMING),
-  MISCELLANEOUS_VOTE(VotePacket.class, "gmde-vote", TranslationSide.INCOMING),
-  MISCELLANEOUS_NOTIFICATION(NotificationPacket.class, "gmde-notification", TranslationSide.INCOMING),
-  MISCELLANEOUS_INPUT_PROMPT(InputPromptPacket.class, "gmde-input-prompt", TranslationSide.BOTH);
+  MISCELLANEOUS_COMPASS(CompassPacket.class, "gmde-compass", Direction.CLIENTBOUND),
+  MISCELLANEOUS_POWER_UP(PowerUpPacket.class, "gmde-powerup", Direction.CLIENTBOUND),
+  MISCELLANEOUS_ZONE(ZonePacket.class, "gmde-zone", Direction.CLIENTBOUND),
+  MISCELLANEOUS_VOTE(VotePacket.class, "gmde-vote", Direction.CLIENTBOUND),
+  MISCELLANEOUS_NOTIFICATION(NotificationPacket.class, "gmde-notification", Direction.CLIENTBOUND),
+  MISCELLANEOUS_INPUT_PROMPT(InputPromptPacket.class, "gmde-input-prompt", Direction.BOTH);
 
   private final Class<? extends GermanMinerPacket> packet;
   private final String oldMessageKey;
-  private final TranslationSide side;
+  private final Direction side;
 
   TranslationPacket(final Class<? extends GermanMinerPacket> packet,
-      final String oldMessageKey, final TranslationSide side) {
+      final String oldMessageKey, final Direction side) {
     this.packet = packet;
     this.oldMessageKey = oldMessageKey;
     this.side = side;
   }
 
-  public void register(final ProtocolService protocol) {
-    protocol.registerTranslationListener(new GermanMinerPayloadTranslationListener(this.packet, this.oldMessageKey, this.side));
+  public void register(final TranslationProtocol protocol) {
+    protocol.registerListener(new GermanMinerTranslationListener(this.packet, this.oldMessageKey, this.side));
   }
 
 }

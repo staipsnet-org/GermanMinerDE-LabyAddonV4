@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
@@ -16,8 +17,9 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.icon.Icon;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.util.I18n;
-import net.labymod.serverapi.protocol.packet.PacketHandler;
-import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
+import net.labymod.serverapi.api.Protocol;
+import net.labymod.serverapi.api.packet.PacketHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
     PacketHandler<PowerUpPacket>, WidgetRegistry<PowerUpPacket> {
@@ -50,7 +52,7 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
   }
 
   @Override
-  public void handle(final PowerUpPacket packet) {
+  public void handle(@NotNull final UUID sender, @NotNull final PowerUpPacket packet) {
     if (packet.getCoolDown() != null) {
       if (this.delays.get(0).isActive()) {
         this.delays.add(new PowerUpDelay(this, packet.getCoolDown()));
@@ -69,10 +71,10 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
   }
 
   @Override
-  public void register(final HudWidgetRegistry registry, final ProtocolService protocol,
+  public void register(final HudWidgetRegistry registry, final Protocol protocol,
       final Class<PowerUpPacket> packetClass) {
     registry.register(this);
-    protocol.registerPacketHandler(packetClass, this);
+    protocol.registerHandler(packetClass, this);
   }
 
   static class PowerUpDelay {

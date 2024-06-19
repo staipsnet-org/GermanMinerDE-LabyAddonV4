@@ -2,14 +2,16 @@ package de.germanminer.addon.widgets;
 
 import de.germanminer.addon.GermanMinerAddon;
 import de.germanminer.addon.api.protocol.packet.GermanMinerPacket;
+import java.util.UUID;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.serverapi.protocol.packet.PacketHandler;
-import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
+import net.labymod.serverapi.api.Protocol;
+import net.labymod.serverapi.api.packet.PacketHandler;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class GermanMinerWidget<P extends GermanMinerPacket>
     extends TextHudWidget<TextHudWidgetConfig> implements PacketHandler<P>, WidgetRegistry<P> {
@@ -54,7 +56,7 @@ public abstract class GermanMinerWidget<P extends GermanMinerPacket>
   }
 
   @Override
-  public void handle(final P packet) {
+  public void handle(@NotNull final UUID sender, @NotNull final P packet) {
     if (this.valueContainer.getValue(packet) != null) {
       this.value = this.valueContainer.getValue(packet);
       this.textLine.updateAndFlush(this.value);
@@ -62,9 +64,9 @@ public abstract class GermanMinerWidget<P extends GermanMinerPacket>
   }
 
   @Override
-  public void register(final HudWidgetRegistry registry, final ProtocolService protocol, final Class<P> packetClass) {
+  public void register(final HudWidgetRegistry registry, final Protocol protocol, final Class<P> packetClass) {
     registry.register(this);
-    protocol.registerPacketHandler(packetClass, this);
+    protocol.registerHandler(packetClass, this);
   }
 
   protected interface VisibilityChecker {

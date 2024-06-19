@@ -6,6 +6,7 @@ import de.germanminer.addon.widgets.WidgetIcon;
 import de.germanminer.addon.widgets.WidgetRegistry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import net.labymod.api.client.component.Component;
 import net.labymod.api.client.gui.hud.HudWidgetRegistry;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidget;
@@ -13,8 +14,9 @@ import net.labymod.api.client.gui.hud.hudwidget.text.TextHudWidgetConfig;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine;
 import net.labymod.api.client.gui.hud.hudwidget.text.TextLine.State;
 import net.labymod.api.client.gui.icon.Icon;
-import net.labymod.serverapi.protocol.packet.PacketHandler;
-import net.labymod.serverapi.protocol.packet.protocol.ProtocolService;
+import net.labymod.serverapi.api.Protocol;
+import net.labymod.serverapi.api.packet.PacketHandler;
+import org.jetbrains.annotations.NotNull;
 
 // I'm not very happy with this current solution
 public class ExtraBalanceWidget extends TextHudWidget<TextHudWidgetConfig>
@@ -52,7 +54,7 @@ public class ExtraBalanceWidget extends TextHudWidget<TextHudWidgetConfig>
   }
 
   @Override
-  public void handle(final ExtraBalancePacket packet) {
+  public void handle(@NotNull final UUID sender, @NotNull final ExtraBalancePacket packet) {
     if (packet.getExtraAccounts() != null) {
       this.accountValues = packet.getExtraAccounts();
 
@@ -61,10 +63,10 @@ public class ExtraBalanceWidget extends TextHudWidget<TextHudWidgetConfig>
   }
 
   @Override
-  public void register(final HudWidgetRegistry registry, final ProtocolService protocol,
+  public void register(final HudWidgetRegistry registry, final Protocol protocol,
       final Class<ExtraBalancePacket> packetClass) {
     registry.register(this);
-    protocol.registerPacketHandler(packetClass, this);
+    protocol.registerHandler(packetClass, this);
   }
 
   public void update() {
