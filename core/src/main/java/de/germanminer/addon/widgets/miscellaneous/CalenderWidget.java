@@ -32,8 +32,8 @@ public class CalenderWidget extends TextHudWidget<TextHudWidgetConfig> {
     super.load(config);
 
     this.calender = super.createLine(
-      Component.translatable(String.format("germanminer.hudWidget.%s.name", super.getId())),
-      this.calenderValue == null ? String.format("germanminer.hudWidget.%s.empty", super.getId())
+      Component.translatable(String.format("germanmineraddon.hudWidget.%s.name", super.getId())),
+      this.calenderValue == null ? String.format("germanmineraddon.hudWidget.%s.empty", super.getId())
         : Component.text(this.calenderValue));
 
     update();
@@ -49,7 +49,7 @@ public class CalenderWidget extends TextHudWidget<TextHudWidgetConfig> {
 
   private void update() {
     final String value = getValue();
-    this.calenderValue = value.isEmpty() ? I18n.translate(String.format("germanminer.hudWidget.%s.empty", super.getId())) : value;
+    this.calenderValue = value.isEmpty() ? I18n.translate(String.format("germanmineraddon.hudWidget.%s.empty", super.getId())) : value;
     this.calender.updateAndFlush(this.calenderValue);
   }
 

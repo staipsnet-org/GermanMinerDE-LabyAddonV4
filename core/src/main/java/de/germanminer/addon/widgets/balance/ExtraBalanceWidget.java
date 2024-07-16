@@ -74,18 +74,18 @@ public class ExtraBalanceWidget extends TextHudWidget<TextHudWidgetConfig>
     this.lines.remove(this.secondAccount);
     this.lines.remove(this.thirdAccount);
 
-    final Component defaultName = Component.translatable(String.format("germanminer.hudWidget.%s.name", super.getId()));
+    final Component defaultName = Component.translatable(String.format("germanmineraddon.hudWidget.%s.name", super.getId()));
 
     final String firstAccount = this.addon.configuration().balanceConfig().firstExtraAccount().get();
     final String secondAccount = this.addon.configuration().balanceConfig().secondExtraAccount().get();
     final String thirdAccount = this.addon.configuration().balanceConfig().thirdExtraAccount().get();
 
     this.firstAccount = super.createLine(firstAccount.isEmpty() ? defaultName : Component.text(firstAccount),
-        Component.translatable("germanminer.hudWidget.loading"));
+        Component.translatable("germanmineraddon.hudWidget.loading"));
     this.secondAccount = super.createLine(secondAccount.isEmpty() ? defaultName : Component.text(secondAccount),
-        Component.translatable("germanminer.hudWidget.loading"));
+        Component.translatable("germanmineraddon.hudWidget.loading"));
     this.thirdAccount = super.createLine(thirdAccount.isEmpty() ? defaultName : Component.text(thirdAccount),
-        Component.translatable("germanminer.hudWidget.loading"));
+        Component.translatable("germanmineraddon.hudWidget.loading"));
 
     updateValue();
   }

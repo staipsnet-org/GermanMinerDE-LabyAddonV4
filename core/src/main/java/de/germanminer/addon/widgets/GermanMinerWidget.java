@@ -45,8 +45,8 @@ public abstract class GermanMinerWidget<P extends GermanMinerPacket>
 
   public void load() {
     this.textLine = super.createLine(
-        Component.translatable(String.format("germanminer.hudWidget.%s.name", super.getId())),
-        this.value == null ? Component.translatable("germanminer.hudWidget.loading")
+        Component.translatable(String.format("germanmineraddon.hudWidget.%s.name", super.getId())),
+        this.value == null ? Component.translatable("germanmineraddon.hudWidget.loading")
             : Component.text(this.value));
   }
 

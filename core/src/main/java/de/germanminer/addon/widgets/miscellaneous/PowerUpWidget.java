@@ -89,8 +89,8 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
       this.widget = widget;
       this.delay = coolDown == null ? null : LocalDateTime.parse(coolDown);
       this.coolDown = this.widget.createLine(
-          Component.translatable(String.format("germanminer.hudWidget.%s.name", this.widget.getId())),
-          this.coolDownValue == null ? Component.translatable(String.format("germanminer.hudWidget.%s.empty", this.widget.getId()))
+          Component.translatable(String.format("germanmineraddon.hudWidget.%s.name", this.widget.getId())),
+          this.coolDownValue == null ? Component.translatable(String.format("germanmineraddon.hudWidget.%s.empty", this.widget.getId()))
               : Component.text(this.coolDownValue));
     }
 
@@ -106,7 +106,7 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
       }
 
       if (remainingSeconds < 1) {
-        this.coolDownValue = I18n.translate(String.format("germanminer.hudWidget.%s.empty", this.widget.getId()));
+        this.coolDownValue = I18n.translate(String.format("germanmineraddon.hudWidget.%s.empty", this.widget.getId()));
         this.coolDown.updateAndFlush(this.coolDownValue);
         this.seconds = 0;
 
@@ -118,7 +118,7 @@ public class PowerUpWidget extends TextHudWidget<TextHudWidgetConfig> implements
         return;
       }
 
-      this.coolDownValue = I18n.translate(String.format("germanminer.hudWidget.%s.remaining",
+      this.coolDownValue = I18n.translate(String.format("germanmineraddon.hudWidget.%s.remaining",
           this.widget.getId()), remainingSeconds);
       this.coolDown.updateAndFlush(this.coolDownValue);
       this.seconds = remainingSeconds;

@@ -166,14 +166,14 @@ public class VehicleDisplayWidget extends WidgetHudWidget<HudWidgetConfig>
   private void drawInfo(final VehicleDisplayPacket packet) {
     final TranslatableComponent info;
     if ("STARTING".equals(packet.getEngineState())) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.engine.starting", super.getId()));
+      info = Component.translatable(String.format("germanmineraddon.hudWidget.%s.engine.starting", super.getId()));
     } else if ("OFF".equals(packet.getEngineState())) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.engine.off", super.getId()));
+      info = Component.translatable(String.format("germanmineraddon.hudWidget.%s.engine.off", super.getId()));
     } else if (packet.getGearPosition() != null) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.gear",
+      info = Component.translatable(String.format("germanmineraddon.hudWidget.%s.gear",
           super.getId()), Component.text(packet.getGearPosition().charAt(0)));
     } else if (packet.getFlightHeight() != null) {
-      info = Component.translatable(String.format("germanminer.hudWidget.%s.height",
+      info = Component.translatable(String.format("germanmineraddon.hudWidget.%s.height",
           super.getId()), Component.text(packet.getFlightHeight()));
     } else {
       info = null;

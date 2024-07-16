@@ -17,7 +17,7 @@ public class CompassWidget extends GermanMinerWidget<CompassPacket> {
           }
 
           if (packet.getTarget().equals("notset") || packet.getDistance().equals("notset")) {
-            return I18n.translate(String.format("germanminer.hudWidget.%s.empty", id));
+            return I18n.translate(String.format("germanmineraddon.hudWidget.%s.empty", id));
           }
 
           return packet.getTarget() + ", " + packet.getDistance() + " Meter";
@@ -27,8 +27,8 @@ public class CompassWidget extends GermanMinerWidget<CompassPacket> {
   @Override
   public void load() {
     this.textLine = super.createLine(
-        Component.translatable(String.format("germanminer.hudWidget.%s.name", super.getId())),
-        this.value == null ? Component.translatable(String.format("germanminer.hudWidget.%s.empty", super.getId()))
+        Component.translatable(String.format("germanmineraddon.hudWidget.%s.name", super.getId())),
+        this.value == null ? Component.translatable(String.format("germanmineraddon.hudWidget.%s.empty", super.getId()))
             : Component.text(this.value));
   }
 
