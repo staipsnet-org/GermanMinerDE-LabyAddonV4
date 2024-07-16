@@ -34,7 +34,7 @@ public enum VehicleDisplayTexture {
 
   private static Icon loadIcon(final String name) {
     return Icon.texture(ResourceLocation.create(
-        "germanminer",
+        "germanmineraddon",
         String.format("textures/vehicle-display/%s", name)
     )).resolution(128, 128);
   }

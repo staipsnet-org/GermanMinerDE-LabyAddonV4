@@ -39,7 +39,7 @@ public enum WidgetIcon {
 
   private static Icon loadIcon(final String name) {
     return Icon.texture(ResourceLocation.create(
-        "germanminer",
+        "germanmineraddon",
         String.format("textures/widget/%s", name)
     )).resolution(64, 64);
   }
