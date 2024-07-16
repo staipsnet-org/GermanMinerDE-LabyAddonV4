@@ -10,10 +10,10 @@ version = "1.0.0"
 labyMod {
     defaultPackageName = "de.germanminer.addon" //change this to your main package name (used by all modules)
     addonInfo {
-        namespace = "germanminer"
-        displayName = "GermanMiner"
-        author = "Funboyy, JensausNGL"
-        description = "Unofficial addon to improve various functions on the real-life server GermanMiner"
+        namespace = "germanmineraddon"
+        displayName = "GermanMinerDE"
+        author = "GermanMinerDE, Funboyy, JensausNGL"
+        description = "Offizielles Addon zur Verbesserung von diversen Spielbereichen auf dem Real-Life-Server GermanMinerDE"
         minecraftVersion = "1.12.2"
         version = System.getenv().getOrDefault("VERSION", "0.0.1")
     }
